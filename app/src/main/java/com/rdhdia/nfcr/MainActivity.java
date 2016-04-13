@@ -69,6 +69,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "onResume() : " + action, Toast.LENGTH_SHORT).show();
         }
-        
+
     }
 }
