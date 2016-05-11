@@ -1,4 +1,4 @@
-package com.rdhdia.nfcr;
+package com.reminisense.fa.activities;
 
 import android.content.Intent;
 import android.nfc.NfcAdapter;
@@ -8,7 +8,9 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+import com.reminisense.fa.R;
+
+public class NfcrActivity extends AppCompatActivity {
 
     private NfcAdapter nfcAdapter;
     private TextView textViewInfo;
@@ -21,10 +23,10 @@ public class MainActivity extends AppCompatActivity {
         textViewInfo = (TextView) findViewById(R.id.info);
 
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
-        if ( nfcAdapter == null ) {
+        if (nfcAdapter == null) {
             Toast.makeText(this, "NFC not supported on this device!", Toast.LENGTH_LONG).show();
             finish();
-        } else if ( !nfcAdapter.isEnabled() ) {
+        } else if (!nfcAdapter.isEnabled()) {
             Toast.makeText(this, "NFC not enabled!", Toast.LENGTH_LONG).show();
             finish();
         }
@@ -38,18 +40,18 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String action = intent.getAction();
 
-        if ( NfcAdapter.ACTION_TAG_DISCOVERED.equals(action) ) {
+        if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(action)) {
             Toast.makeText(this, "onResume() - ACTION_TAG_DISCOVERED", Toast.LENGTH_SHORT).show();
 
             Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-            if ( tag == null ) {
+            if (tag == null) {
                 textViewInfo.setText("tag == null");
             } else {
                 String tagInfo = tag.toString() + "\n";
 
                 tagInfo += "\nTag Id: \n";
                 byte[] tagId = tag.getId();
-                tagInfo += "length = " + tagId.length +"\n";
+                tagInfo += "length = " + tagId.length + "\n";
 
                 for (int i = 0; i < tagId.length; i++) {
                     tagInfo += Integer.toHexString(tagId[i] & 0xFF) + " ";
@@ -58,9 +60,9 @@ public class MainActivity extends AppCompatActivity {
 
                 String[] techList = tag.getTechList();
                 tagInfo += "\nTech List\n";
-                tagInfo += "length = " + techList.length +"\n";
+                tagInfo += "length = " + techList.length + "\n";
 
-                for (int i=0; i < techList.length; i++) {
+                for (int i = 0; i < techList.length; i++) {
                     tagInfo += techList[i] + "\n ";
                 }
 
