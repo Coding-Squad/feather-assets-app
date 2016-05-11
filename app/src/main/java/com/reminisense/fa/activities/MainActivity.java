@@ -3,6 +3,7 @@ package com.reminisense.fa.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+
 import com.reminisense.fa.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -14,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = new Intent();
         intent.setClassName("com.reminisense.fa",
-                "com.reminisense.fa.activities.NfcrActivity");
+                "com.reminisense.fa.activities.LoginActivity");
         startActivity(intent);
         finish();
     }
