@@ -46,7 +46,8 @@ public class MenuActivity extends AppCompatActivity {
     private class QrClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            Toast.makeText(MenuActivity.this, "TODO: QR/Barcode reader", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(view.getContext(), BarcodeScanner.class);
+            startActivity(intent);
         }
     }
 }

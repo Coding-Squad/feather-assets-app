@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.reminisense.fa">
 
+    <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.NFC" />
     <uses-feature android:name="android.hardware.nfc"
         android:required="true" />
@@ -29,12 +30,15 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name=".activities.BarcodeScanner"
+            android:label="@string/app_name" />
         <activity android:name="com.reminisense.fa.activities.NfcrActivity">
             <intent-filter>
                 <action android:name="android.nfc.action.TAG_DISCOVERED" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>
