@@ -5,13 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import com.reminisense.fa.BuildConfig;
 import com.reminisense.fa.R;
-
-import java.util.Arrays;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -46,7 +42,8 @@ public class MenuActivity extends AppCompatActivity {
     private class QrClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            Toast.makeText(MenuActivity.this, "TODO: QR/Barcode reader", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(view.getContext(), BarcodeScannerActivity.class);
+            startActivity(intent);
         }
     }
 }
