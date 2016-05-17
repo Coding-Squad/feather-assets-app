@@ -30,7 +30,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.BarcodeScanner"
+        <activity android:name=".activities.BarcodeScannerActivity"
             android:label="@string/app_name" />
         <activity android:name="com.reminisense.fa.activities.NfcrActivity">
             <intent-filter>

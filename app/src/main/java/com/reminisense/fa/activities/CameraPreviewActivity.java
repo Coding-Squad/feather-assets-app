@@ -9,15 +9,16 @@ import android.view.SurfaceView;
 import java.io.IOException;
 
 
-public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback {
+public class CameraPreviewActivity extends SurfaceView implements SurfaceHolder.Callback {
+    //SurfaceHolder.Callback == Let the application receive information about changes to the surface.
     private SurfaceHolder mHolder;
     private Camera mCamera;
     private Camera.PreviewCallback previewCallback;
     private Camera.AutoFocusCallback autoFocusCallback;
 
-    public CameraPreview(Context context, Camera camera,
-                         Camera.PreviewCallback previewCb,
-                         Camera.AutoFocusCallback autoFocusCb) {
+    public CameraPreviewActivity(Context context, Camera camera,
+                                 Camera.PreviewCallback previewCb,
+                                 Camera.AutoFocusCallback autoFocusCb) {
         super(context);
         mCamera = camera;
         previewCallback = previewCb;

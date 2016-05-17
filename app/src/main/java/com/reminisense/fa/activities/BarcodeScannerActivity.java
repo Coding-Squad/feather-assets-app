@@ -21,10 +21,12 @@ import net.sourceforge.zbar.ImageScanner;
 import net.sourceforge.zbar.Symbol;
 import net.sourceforge.zbar.SymbolSet;
 
-public class BarcodeScanner extends AppCompatActivity {
-
+public class BarcodeScannerActivity extends AppCompatActivity {
+    /*
+        This is where it instantiate the Barcode and QR Reader and retrieve its result.
+     */
     private Camera mCamera;
-    private CameraPreview mPreview;
+    private CameraPreviewActivity mPreview;
     private Handler autoFocusHandler;
 
     private Button scanButton;
@@ -56,7 +58,7 @@ public class BarcodeScanner extends AppCompatActivity {
         scanner.setConfig(0, Config.X_DENSITY, 3);
         scanner.setConfig(0, Config.Y_DENSITY, 3);
 
-        mPreview = new CameraPreview(BarcodeScanner.this, mCamera, previewCb,
+        mPreview = new CameraPreviewActivity(BarcodeScannerActivity.this, mCamera, previewCb,
                 autoFocusCB);
         FrameLayout preview = (FrameLayout) findViewById(R.id.cameraPreview);
         preview.addView(mPreview);
@@ -138,7 +140,7 @@ public class BarcodeScanner extends AppCompatActivity {
 
                     showAlertDialog(scanResult);
 
-                  /*  Toast.makeText(BarcodeScanner.this, scanResult,
+                  /*  Toast.makeText(BarcodeScannerActivity.this, scanResult,
                             Toast.LENGTH_SHORT).show();*/
 
                     barcodeScanned = true;
