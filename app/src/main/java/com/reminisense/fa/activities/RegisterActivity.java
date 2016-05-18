@@ -4,9 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.reminisense.fa.BuildConfig;
@@ -16,34 +19,50 @@ import com.reminisense.fa.models.RestResult;
 import com.reminisense.fa.utils.FeatherAssetsWebService;
 import com.reminisense.fa.utils.RestClient;
 
-import java.util.Random;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * Activity to handle registration of assets.
+ */
 public class RegisterActivity extends AppCompatActivity {
 
     private static final String Submit = "Submitting... ";
+    @Bind(R.id.txtCompanyId)
+    EditText txtCompanyId;
+    @Bind(R.id.txtOwnerId)
+    EditText txtOwnerId;
+    @Bind(R.id.txtName)
+    EditText txtName;
+    @Bind(R.id.txtDescription)
+    EditText txtDescription;
+    @Bind(R.id.txtTakeOutInfo)
+    EditText txtTakeOutInfo;
+    @Bind(R.id.btnSubmit)
+    AppCompatButton btnSubmit;
+    @Bind(R.id.btnQrCodeRegister)
+    AppCompatButton btnQrCodeRegister;
+    @Bind(R.id.btnRfidRegister)
+    AppCompatButton btnRfidRegister;
+    @Bind(R.id.swchTakeOut)
+    Switch swchTakeOut;
+    @Bind(R.id.txtTagData)
+    TextView txtTagData;
+    @Bind(R.id.txtTagType)
+    TextView txtTagType;
 
-    @Bind(R.id.companyId)
-    EditText cId;
-    @Bind(R.id.ownerId)
-    EditText oId;
-    @Bind(R.id.name)
-    EditText aName;
-    @Bind(R.id.description)
-    EditText desc;
-    @Bind(R.id.takeoutInfo)
-    EditText tOutInfo;
-    @Bind(R.id.submit)
-    AppCompatButton submitButton;
-    @Bind(R.id.QrBcodeRegister)
-    AppCompatButton qrBarCode;
-    @Bind(R.id.TKOgroup)
-    RadioGroup tkoGroup;
+    // Request Codes
+    private static final int SCAN_RFID = 1;
+    private static final int SCAN_BARCODE = 2;
+    private static final int SCAN_QR = 3;
+
+    // Tag type strings
+    private static final String TYPE_RFID = "RFID/NFC";
+    private static final String TYPE_BARCODE = "Bar Code";
+    private static final String TYPE_QRCODE = "QR Code";
 
     private FeatherAssetsWebService apiService;
 
@@ -55,8 +74,19 @@ public class RegisterActivity extends AppCompatActivity {
 
         apiService = new RestClient().getApiService();
 
-        qrBarCode.setOnClickListener(new QrBarcodeListener());
-        submitButton.setOnClickListener(new SubmitClickListener());
+        btnRfidRegister.setOnClickListener(new RfidListener());
+        btnQrCodeRegister.setOnClickListener(new QrBarcodeListener());
+        btnSubmit.setOnClickListener(new SubmitClickListener());
+
+    }
+
+    private class RfidListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent();
+            intent.setClassName(BuildConfig.APPLICATION_ID, BuildConfig.APPLICATION_ID + ".activities.NfcScannerActivity");
+            startActivityForResult(intent, SCAN_RFID);
+        }
     }
 
     private class QrBarcodeListener implements View.OnClickListener {
@@ -68,84 +98,101 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Check which request we're responding to
+        if (requestCode == SCAN_RFID) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+                txtTagData.setText(data.getDataString());
+                txtTagType.setText(TYPE_RFID);
+            }
+        } else if (requestCode == SCAN_BARCODE || requestCode == SCAN_QR) {
+            // TODO
+        }
+    }
+
     private class SubmitClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            submitData();
+            Asset asset = new Asset();
+            asset.setCompanyId(Integer.parseInt(txtCompanyId.getText().toString()));
+            asset.setOwnerId(Integer.parseInt(txtOwnerId.getText().toString()));
+            asset.setName(txtName.getText().toString());
+            asset.setDescription(txtDescription.getText().toString());
+
+            // set asset tag information
+            asset.setTag(txtTagData.getText().toString());
+            String tagType = txtTagType.getText().toString();
+            if (TYPE_RFID.equals(tagType)) {
+                asset.setTagType(1);
+            } else if (TYPE_BARCODE.equals(tagType)) {
+                asset.setTagType(2);
+            } else if (TYPE_QRCODE.equals(tagType)) {
+                asset.setTagType(3);
+            } else {
+                // unknown tag
+            }
+
+            asset.setTakeOutInfo(txtTakeOutInfo.getText().toString());
+            asset.setTakeOutAllowed(swchTakeOut.isChecked());
+
+            Log.d(RegisterActivity.class.toString(), asset.toString());
+            submitData(asset);
             setFieldsEnabled(false);
         }
-    }
 
-    private void submitData() {
-        Asset asset = new Asset();
-        asset.setCompanyId(Integer.parseInt(cId.getText().toString()));
-        asset.setOwnerId(Integer.parseInt(oId.getText().toString()));
-        asset.setName(aName.getText().toString());
-        asset.setDescription(desc.getText().toString());
+        private void submitData(Asset asset) {
+            Call<RestResult> call = apiService.register(asset);
+            call.enqueue(new Callback<RestResult>() {
+                @Override
+                public void onResponse(Call<RestResult> call, Response<RestResult> response) {
+                    if (response.code() == 200) {
+                        RestResult restResult = response.body();
+                        if ("OK".equals(restResult.getResult())) {
+                            Toast.makeText(RegisterActivity.this, "Submit successful", Toast.LENGTH_LONG).show();
 
-        // FIXME
-        asset.setTag("add asset code here" + new Random());
-        asset.setTagType(1);
-        // set barcode
-        // set
-        // FIXME
-
-        asset.setTakeOutInfo(tOutInfo.getText().toString());
-
-        Call<RestResult> call = apiService.register(asset);
-        call.enqueue(new Callback<RestResult>() {
-            @Override
-            public void onResponse(Call<RestResult> call, Response<RestResult> response) {
-                if (response.code() == 200) {
-                    RestResult restResult = response.body();
-                    if ("OK".equals(restResult.getResult())) {
-                        Toast.makeText(RegisterActivity.this, "Submit successful", Toast.LENGTH_LONG).show();
-
-                        Intent intent = new Intent();
-                        intent.setClassName(BuildConfig.APPLICATION_ID, BuildConfig.APPLICATION_ID + ".activities.MenuActivity");
-                        startActivity(intent);
-                        finish();
+                            Intent intent = new Intent();
+                            intent.setClassName(BuildConfig.APPLICATION_ID, BuildConfig.APPLICATION_ID + ".activities.MenuActivity");
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            Toast.makeText(RegisterActivity.this, restResult.getMessage(), Toast.LENGTH_LONG).show();
+                            setFieldsEnabled(true);
+                        }
                     } else {
-                        Toast.makeText(RegisterActivity.this, "Error submitting, please try again", Toast.LENGTH_LONG).show();
+                        Toast.makeText(RegisterActivity.this, "Error connecting to server, please try again", Toast.LENGTH_LONG).show();
                         setFieldsEnabled(true);
                     }
-                } else {
-                    Toast.makeText(RegisterActivity.this, "Error connecting to server, please try again", Toast.LENGTH_LONG).show();
-                    setFieldsEnabled(true);
+
                 }
 
-            }
-
-            @Override
-            public void onFailure(Call<RestResult> call, Throwable t) {
-                Toast.makeText(RegisterActivity.this, "Error connecting to server, please try again", Toast.LENGTH_LONG).show();
-                t.printStackTrace();
-                setFieldsEnabled(true);
-            }
-        });
-    }
-
-    public void onRadioButtonClicked(View view) {
-        // what to do when radio button is clicked
-    }
-
-
-    private void setFieldsEnabled(boolean enabled) {
-        if (enabled) {
-            cId.setEnabled(true);
-            oId.setEnabled(true);
-            submitButton.setEnabled(true);
-            desc.setEnabled(true);
-            aName.setEnabled(true);
-            tOutInfo.setEnabled(true);
-        } else {
-            cId.setEnabled(false);
-            oId.setEnabled(false);
-            submitButton.setEnabled(false);
-            desc.setEnabled(false);
-            aName.setEnabled(false);
-            tOutInfo.setEnabled(false);
+                @Override
+                public void onFailure(Call<RestResult> call, Throwable t) {
+                    Toast.makeText(RegisterActivity.this, "Error connecting to server, please try again", Toast.LENGTH_LONG).show();
+                    t.printStackTrace();
+                    setFieldsEnabled(true);
+                }
+            });
         }
-    }
 
+        private void setFieldsEnabled(boolean enabled) {
+            if (enabled) {
+                txtCompanyId.setEnabled(true);
+                txtOwnerId.setEnabled(true);
+                btnSubmit.setEnabled(true);
+                txtDescription.setEnabled(true);
+                txtName.setEnabled(true);
+                txtTakeOutInfo.setEnabled(true);
+            } else {
+                txtCompanyId.setEnabled(false);
+                txtOwnerId.setEnabled(false);
+                btnSubmit.setEnabled(false);
+                txtDescription.setEnabled(false);
+                txtName.setEnabled(false);
+                txtTakeOutInfo.setEnabled(false);
+            }
+        }
+
+    }
 }

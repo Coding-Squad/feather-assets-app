@@ -86,4 +86,19 @@ public class Asset {
     public void setTagType(int tagType) {
         this.tagType = tagType;
     }
+
+    @Override
+    public String toString() {
+        return "Asset{" +
+                "companyId=" + companyId +
+                ", ownerId=" + ownerId +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", takeOutInfo='" + takeOutInfo + '\'' +
+                ", imageUrls='" + imageUrls + '\'' +
+                ", takeOutAllowed=" + takeOutAllowed +
+                ", tag='" + tag + '\'' +
+                ", tagType=" + tagType +
+                '}';
+    }
 }

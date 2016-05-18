@@ -35,7 +35,7 @@
             android:label="@string/app_name" />
         <activity android:name=".activities.RegisterActivity"
             android:label="@string/app_name" />
-        <activity android:name="com.reminisense.fa.activities.NfcrActivity">
+        <activity android:name=".activities.NfcScannerActivity">
             <intent-filter>
                 <action android:name="android.nfc.action.TAG_DISCOVERED" />
                 <category android:name="android.intent.category.DEFAULT" />

@@ -30,7 +30,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <EditText
-            android:id="@+id/companyId"
+            android:id="@+id/txtCompanyId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -44,7 +44,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <EditText
-            android:id="@+id/ownerId"
+            android:id="@+id/txtOwnerId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -58,7 +58,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <EditText
-            android:id="@+id/name"
+            android:id="@+id/txtName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -72,40 +72,19 @@
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <EditText
-            android:id="@+id/description"
+            android:id="@+id/txtDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textLongMessage" />
 
-        <TextView
-            android:id="@+id/portable"
+        <Switch
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Allowed to be Taken Out?"
+            android:text="Take-out Allowed?"
+            android:id="@+id/swchTakeOut"
+            android:checked="false"
             android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/TKOgroup"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"
-            android:orientation="vertical">
-
-            <RadioButton
-                android:id="@+id/yes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="onRadioButtonClicked"
-                android:text="Yes" />
-
-            <RadioButton
-                android:id="@+id/no"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="onRadioButtonClicked"
-                android:text="No" />
-        </RadioGroup>
 
         <TextView
             android:id="@+id/infoTitle"
@@ -115,32 +94,45 @@
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <EditText
-            android:id="@+id/takeoutInfo"
+            android:id="@+id/txtTakeOutInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textLongMessage" />
 
         <Button
-            android:id="@+id/QrBcodeRegister"
+            android:id="@+id/btnQrCodeRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="QR Code / Barcode" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtTagType" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/txtTagData"
+            android:layout_gravity="center_horizontal"
+            android:text="NONE" />
+
         <Button
-            android:id="@+id/rfidRegister"
+            android:id="@+id/btnRfidRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="RFID tag" />
 
         <Button
-            android:id="@+id/submit"
+            android:id="@+id/btnSubmit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="SUBMIT" />
 
         <Button
-            android:id="@+id/cancel"
+            android:id="@+id/btnCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="CANCEL" />

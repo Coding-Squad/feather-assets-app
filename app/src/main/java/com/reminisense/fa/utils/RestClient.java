@@ -11,14 +11,9 @@ public class RestClient {
     private FeatherAssetsWebService apiService;
 
     public RestClient() {
-//        OkHttpClient client = new OkHttpClient();
-//        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-//        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-//        client.interceptors().add(interceptor);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
-//                .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

@@ -24,7 +24,4 @@ public interface FeatherAssetsWebService {
     @POST
     Call<RestResult> transact (@Body TransactRequest request);
 
-
-
-
 }
