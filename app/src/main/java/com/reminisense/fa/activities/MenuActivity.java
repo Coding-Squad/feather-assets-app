@@ -28,6 +28,7 @@ public class MenuActivity extends AppCompatActivity {
 
         btnRfid.setOnClickListener(new RfidClickListener());
         btnQr.setOnClickListener(new QrClickListener());
+        btnReg.setOnClickListener(new RegisterClickListener());
 
     }
 
@@ -44,6 +45,14 @@ public class MenuActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             Intent intent = new Intent(view.getContext(), BarcodeScannerActivity.class);
+            startActivity(intent);
+        }
+    }
+
+    private class RegisterClickListener implements View.OnClickListener{
+        @Override
+        public void onClick(View view){
+            Intent intent = new Intent(view.getContext(), RegisterActivity.class);
             startActivity(intent);
         }
     }

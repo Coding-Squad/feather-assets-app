@@ -5,8 +5,8 @@ package com.reminisense.fa.models;
  */
 public class User {
 
-    private String companyId;
-    private String ownerId;
+    private int companyId;
+    private int ownerId;
     private String name;
     private String description;
     private String takeOutInfo;
@@ -16,7 +16,7 @@ public class User {
     private String imageUrls;
     private boolean takeOutAllowed;
 
-    public User(String companyId, String ownerId, String name, String description, String takeOutInfo){
+    public User(int companyId, int ownerId, String name, String description, String takeOutInfo){
         this.companyId = companyId;
         this.ownerId = ownerId;
         this.name = name;
@@ -24,20 +24,36 @@ public class User {
         this.takeOutInfo = takeOutInfo;
     }
 
-    public String getCompanyId(){
+    public int getCompanyId( ){
         return companyId;
     }
 
-    public String getOwnerId(){
+    public void setCompanyId(int companyId){
+        this.companyId = companyId;
+    }
+
+    public int getOwnerId(){
         return ownerId;
+    }
+
+    public void setOwnerId(int ownerId){
+        this.ownerId = ownerId;
     }
 
     public String getName(){
         return name;
     }
 
+    public void setName(String name){
+        this.name = name;
+    }
+
     public String getDescription(){
         return description;
+    }
+
+    public void setDescription(String description){
+        this.description = description;
     }
 
     public String getQrCode(){
@@ -54,6 +70,10 @@ public class User {
 
     public String getTakeOutInfo(){
         return takeOutInfo;
+    }
+
+    public void setTakeOutInfo(String takeOutInfo){
+        this.takeOutInfo = takeOutInfo;
     }
 
     public String getImageUrls(){

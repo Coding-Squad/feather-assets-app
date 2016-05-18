@@ -48,6 +48,7 @@ public class RegisterActivity extends AppCompatActivity{
     @Bind(R.id.description) EditText desc;
     @Bind(R.id.takeoutInfo) EditText tOutInfo;
     @Bind(R.id.submit) Button submitButton;
+    @Bind(R.id.QrBcodeRegister) Button qrBarCode;
 
     private FeaqEndpoint apiService;
 
@@ -55,18 +56,27 @@ public class RegisterActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registerassets);
-        ButterKnife.bind(this);
 
         apiService = new RestClient().getApiService();
 
+        qrBarCode.setOnClickListener(new QrBarcodeListener());
         submitButton.setOnClickListener(new SubmitClickListener());
+    }
+
+    private class QrBarcodeListener implements View.OnClickListener{
+        @Override
+        public void onClick(View view){
+            Intent intent = new Intent();
+            intent.setClassName(BuildConfig.APPLICATION_ID, BuildConfig.APPLICATION_ID + ".activities.BarcodeScannerActivity");
+            startActivity(intent);
+        }
     }
 
     private class SubmitClickListener implements View.OnClickListener{
         @Override
         public void onClick(View view){
-            String cIdInput = cId.getText().toString();
-            String oIdInput = oId.getText().toString();
+            int cIdInput = Integer.parseInt(cId.getText().toString());
+            int oIdInput = Integer.parseInt(oId.getText().toString());
             String aNameInput = aName.getText().toString();
             String descInput = desc.getText().toString();
             String tOutInfoInput = tOutInfo.getText().toString();
@@ -76,13 +86,13 @@ public class RegisterActivity extends AppCompatActivity{
         }
     }
 
-    private void SubmitData(String cId, String oId, String aName, String desc, String tOutInfo){
-        User user = new User(cId , oId, aName, desc, tOutInfo);
-        user.getCompanyId();
-        user.getOwnerId();
-        user.getName();
-        user.getDescription();
-        user.getTakeOutInfo();
+    private void SubmitData(int cId, int oId, String aName, String desc, String tOutInfo){
+        User user = new User(cId, oId, aName, desc, tOutInfo);
+        user.setCompanyId(cId);
+        user.setOwnerId(oId);
+        user.setName(aName);
+        user.setDescription(desc);
+        user.setTakeOutInfo(tOutInfo);
 
         Call<UserInfo> call = apiService.register(user);
         call.enqueue(new Callback<UserInfo>() {
@@ -126,12 +136,12 @@ public class RegisterActivity extends AppCompatActivity{
             aName.setEnabled(true);
             tOutInfo.setEnabled(true);
         } else {
-            cId.setEnabled(true);
-            oId.setEnabled(true);
-            submitButton.setEnabled(true);
-            desc.setEnabled(true);
-            aName.setEnabled(true);
-            tOutInfo.setEnabled(true);
+            cId.setEnabled(false);
+            oId.setEnabled(false);
+            submitButton.setEnabled(false);
+            desc.setEnabled(false);
+            aName.setEnabled(false);
+            tOutInfo.setEnabled(false);
         }
     }
 
