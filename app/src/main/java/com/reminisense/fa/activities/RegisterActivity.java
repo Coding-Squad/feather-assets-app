@@ -125,7 +125,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    public void onRadioButtonClicked() {
+    public void onRadioButtonClicked(View view) {
         // what to do when radio button is clicked
     }
 
