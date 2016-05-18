@@ -1,6 +1,7 @@
 package com.reminisense.fa.utils;
 
-import com.reminisense.fa.assets.UserInfo.User;
+import com.reminisense.fa.models.User;
+import com.reminisense.fa.models.UserInfo;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -12,8 +13,8 @@ import retrofit2.http.POST;
  */
 public interface FeaqEndpoint {
 
-    @POST("/register/assets")
-    Call<User> operation (@Body User user);
+    @POST("/register/asset")
+    Call<UserInfo> register (@Body User user);
 
 
 
