@@ -13,7 +13,7 @@ import com.reminisense.fa.BuildConfig;
 import com.reminisense.fa.R;
 import com.reminisense.fa.models.Asset;
 import com.reminisense.fa.models.RestResult;
-import com.reminisense.fa.utils.FeaqEndpoint;
+import com.reminisense.fa.utils.FeatherAssetsWebService;
 import com.reminisense.fa.utils.RestClient;
 
 import java.util.Random;
@@ -45,7 +45,7 @@ public class RegisterActivity extends AppCompatActivity {
     @Bind(R.id.TKOgroup)
     RadioGroup tkoGroup;
 
-    private FeaqEndpoint apiService;
+    private FeatherAssetsWebService apiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
