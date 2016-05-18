@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RestClient {
 
-    private static final String BASE_URL = "";
+    private static final String BASE_URL = "http://feather-assets.herokuapp.com/";
     private FeaqEndpoint apiService;
 
     public RestClient() {
@@ -26,6 +26,7 @@ public class RestClient {
     }
 
     public FeaqEndpoint getApiService() {
+
         return apiService;
     }
 

@@ -42,7 +42,7 @@ public class BarcodeScannerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.barcode_scanner);
+        setContentView(R.layout.activity_barcodescanner);
 
         initControls();
     }

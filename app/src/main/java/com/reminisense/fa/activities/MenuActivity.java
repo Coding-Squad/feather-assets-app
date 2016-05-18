@@ -20,6 +20,7 @@ public class MenuActivity extends AppCompatActivity {
 
     @Bind(R.id.btnRfid) AppCompatButton btnRfid;
     @Bind(R.id.btnQr) AppCompatButton btnQr;
+    @Bind(R.id.btnReg) AppCompatButton btnReg;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
