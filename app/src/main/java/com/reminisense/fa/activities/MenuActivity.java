@@ -16,11 +16,11 @@ import butterknife.ButterKnife;
  * Created by Nigs on 2016-05-11.
  */
 public class MenuActivity extends AppCompatActivity {
-
-
     @Bind(R.id.btnRfid) AppCompatButton btnRfid;
     @Bind(R.id.btnQr) AppCompatButton btnQr;
     @Bind(R.id.btnReg) AppCompatButton btnReg;
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
@@ -28,6 +28,7 @@ public class MenuActivity extends AppCompatActivity {
 
         btnRfid.setOnClickListener(new RfidClickListener());
         btnQr.setOnClickListener(new QrClickListener());
+        btnReg.setOnClickListener(new RegisterClickListener());
 
     }
 
@@ -35,7 +36,7 @@ public class MenuActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             Intent intent = new Intent();
-            intent.setClassName(BuildConfig.APPLICATION_ID, BuildConfig.APPLICATION_ID + ".activities.NfcrActivity");
+            intent.setClassName(BuildConfig.APPLICATION_ID, BuildConfig.APPLICATION_ID + ".activities.NfcScannerActivity");
             startActivity(intent);
         }
     }
@@ -44,6 +45,14 @@ public class MenuActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             Intent intent = new Intent(view.getContext(), BarcodeScannerActivity.class);
+            startActivity(intent);
+        }
+    }
+
+    private class RegisterClickListener implements View.OnClickListener{
+        @Override
+        public void onClick(View view){
+            Intent intent = new Intent(view.getContext(), RegisterActivity.class);
             startActivity(intent);
         }
     }

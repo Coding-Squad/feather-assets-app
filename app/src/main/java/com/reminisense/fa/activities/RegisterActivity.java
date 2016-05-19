@@ -1,240 +1,219 @@
 package com.reminisense.fa.activities;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.SyncStateContract;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.reminisense.fa.R;
-import com.reminisense.fa.models.User;
-import com.reminisense.fa.models.UserInfo;
-import com.reminisense.fa.utils.FeaqEndpoint;
-import com.reminisense.fa.utils.RestClient;
 import com.reminisense.fa.BuildConfig;
-import com.reminisense.fa.utils.ServerRequest;
-import com.reminisense.fa.utils.ServerResponse;
-
+import com.reminisense.fa.R;
+import com.reminisense.fa.models.Asset;
+import com.reminisense.fa.models.RestResult;
+import com.reminisense.fa.utils.FeatherAssetsWebService;
+import com.reminisense.fa.utils.RestClient;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.Response;
 
-public class RegisterActivity extends AppCompatActivity{
+/**
+ * Activity to handle registration of assets.
+ */
+public class RegisterActivity extends AppCompatActivity {
 
     private static final String Submit = "Submitting... ";
+    @Bind(R.id.txtCompanyId)
+    EditText txtCompanyId;
+    @Bind(R.id.txtOwnerId)
+    EditText txtOwnerId;
+    @Bind(R.id.txtName)
+    EditText txtName;
+    @Bind(R.id.txtDescription)
+    EditText txtDescription;
+    @Bind(R.id.txtTakeOutInfo)
+    EditText txtTakeOutInfo;
+    @Bind(R.id.btnSubmit)
+    AppCompatButton btnSubmit;
+    @Bind(R.id.btnQrCodeRegister)
+    AppCompatButton btnQrCodeRegister;
+    @Bind(R.id.btnRfidRegister)
+    AppCompatButton btnRfidRegister;
+    @Bind(R.id.btnBarCodeRegister)
+    AppCompatButton btnBarCodeRegister;
+    @Bind(R.id.swchTakeOut)
+    Switch swchTakeOut;
+    @Bind(R.id.txtTagData)
+    TextView txtTagData;
+    @Bind(R.id.txtTagType)
+    TextView txtTagType;
 
-    @Bind(R.id.companyId) EditText cId;
-    @Bind(R.id.ownerId) EditText oId;
-    @Bind(R.id.name) EditText aName;
-    @Bind(R.id.description) EditText desc;
-    @Bind(R.id.takeoutInfo) EditText tOutInfo;
-    @Bind(R.id.submit) Button submitButton;
+    // Request Codes
+    private static final int SCAN_RFID = 1;
+    private static final int SCAN_BARCODE = 2;
+    private static final int SCAN_QR = 3;
 
-    private FeaqEndpoint apiService;
+    // Tag type strings
+    private static final String TYPE_RFID = "RFID/NFC";
+    private static final String TYPE_BARCODE = "Bar Code";
+    private static final String TYPE_QRCODE = "QR Code";
+
+    private FeatherAssetsWebService apiService;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registerassets);
         ButterKnife.bind(this);
 
         apiService = new RestClient().getApiService();
 
-        submitButton.setOnClickListener(new SubmitClickListener());
+        btnRfidRegister.setOnClickListener(new RfidListener());
+        btnQrCodeRegister.setOnClickListener(new QrListener());
+        btnBarCodeRegister.setOnClickListener(new BarcodeListener());
+        btnSubmit.setOnClickListener(new SubmitClickListener());
+
     }
 
-    private class SubmitClickListener implements View.OnClickListener{
+    private class RfidListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent();
+            intent.setClassName(BuildConfig.APPLICATION_ID, BuildConfig.APPLICATION_ID + ".activities.NfcScannerActivity");
+            startActivityForResult(intent, SCAN_RFID);
+        }
+    }
+
+    private class QrListener implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent();
+            intent.setClassName(BuildConfig.APPLICATION_ID, BuildConfig.APPLICATION_ID + ".activities.BarcodeScannerActivity");
+            startActivityForResult(intent, SCAN_QR);
+        }
+    }
+
+    private class BarcodeListener implements View.OnClickListener{
         @Override
         public void onClick(View view){
-            String cIdInput = cId.getText().toString();
-            String oIdInput = oId.getText().toString();
-            String aNameInput = aName.getText().toString();
-            String descInput = desc.getText().toString();
-            String tOutInfoInput = tOutInfo.getText().toString();
-
-            SubmitData(cIdInput,oIdInput,aNameInput,descInput,tOutInfoInput);
-            setFieldsEnabled(false);
+            Intent intent = new Intent();
+            intent.setClassName(BuildConfig.APPLICATION_ID, BuildConfig.APPLICATION_ID + ".activities.BarcodeScannerActivity");
+            startActivityForResult(intent, SCAN_BARCODE);
         }
     }
-
-    private void SubmitData(String cId, String oId, String aName, String desc, String tOutInfo){
-        User user = new User(cId , oId, aName, desc, tOutInfo);
-        user.getCompanyId();
-        user.getOwnerId();
-        user.getName();
-        user.getDescription();
-        user.getTakeOutInfo();
-
-        Call<UserInfo> call = apiService.register(user);
-        call.enqueue(new Callback<UserInfo>() {
-            @Override
-            public void onResponse(Call<UserInfo> call, Response<UserInfo> response) {
-                if(response.code() == 200){
-                    UserInfo userInfo = response.body();
-                    if(userInfo.getSuccess() == 1){
-                        Toast.makeText(RegisterActivity.this, "Submit successful",Toast.LENGTH_LONG).show();
-
-                        Intent intent = new Intent();
-                        intent.setClassName(BuildConfig.APPLICATION_ID, BuildConfig.APPLICATION_ID + ".activities.MenuActivity");
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        Toast.makeText(RegisterActivity.this, "Error submitting, please try again", Toast.LENGTH_LONG).show();
-                        setFieldsEnabled(true);
-                    }
-                } else {
-                    Toast.makeText(RegisterActivity.this, "Error connecting to server, please try again", Toast.LENGTH_LONG).show();
-                    setFieldsEnabled(true);
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<UserInfo> call, Throwable t) {
-                Toast.makeText(RegisterActivity.this, "Error connecting to server, please try again", Toast.LENGTH_LONG).show();
-                t.printStackTrace();
-                setFieldsEnabled(true);
-            }
-        });
-    }
-
-    private void setFieldsEnabled(boolean enabled) {
-        if ( enabled ) {
-            cId.setEnabled(true);
-            oId.setEnabled(true);
-            submitButton.setEnabled(true);
-            desc.setEnabled(true);
-            aName.setEnabled(true);
-            tOutInfo.setEnabled(true);
-        } else {
-            cId.setEnabled(true);
-            oId.setEnabled(true);
-            submitButton.setEnabled(true);
-            desc.setEnabled(true);
-            aName.setEnabled(true);
-            tOutInfo.setEnabled(true);
-        }
-    }
-
-}
-/*
-    @Bind(R.id.cancel) AppCompatButton cancel;
-    private EditText cId,oId,name,desc,takeOut;
-    private FeaqEndpoint apiService;
-
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registerassets);
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Check which request we're responding to
+        if (requestCode == SCAN_RFID) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+                txtTagData.setText(data.getDataString());
+                txtTagType.setText(TYPE_RFID);
+            }
+        } else if (requestCode == SCAN_BARCODE /*|| requestCode == SCAN_QR*/) {
+            // TODO
+            if(resultCode == RESULT_OK){
+                txtTagData.setText(data.getDataString());
+                txtTagType.setText(TYPE_BARCODE);
+            }
+        } else if (requestCode == SCAN_QR){
+            if(resultCode == RESULT_OK){
+                txtTagData.setText(data.getDataString());
+                txtTagType.setText(TYPE_QRCODE);
+            }
+        }
+    }
 
-        apiService = new RestClient().getApiService();
+    private class SubmitClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            Asset asset = new Asset();
+            asset.setCompanyId(Integer.parseInt(txtCompanyId.getText().toString()));
+            asset.setOwnerId(Integer.parseInt(txtOwnerId.getText().toString()));
+            asset.setName(txtName.getText().toString());
+            asset.setDescription(txtDescription.getText().toString());
 
-            final RadioGroup takeOut = (RadioGroup)findViewById(R.id.TKOgroup);
-            Button bt = (Button)findViewById(R.id.submit);
+            // set asset tag information
+            asset.setTag(txtTagData.getText().toString());
+            String tagType = txtTagType.getText().toString();
+            if (TYPE_RFID.equals(tagType)) {
+                asset.setTagType(1);
+            } else if (TYPE_BARCODE.equals(tagType)) {
+                asset.setTagType(2);
+            } else if (TYPE_QRCODE.equals(tagType)) {
+                asset.setTagType(3);
+            } else {
+                // unknown tag
+            }
 
-            bt.setOnClickListener(new View.OnClickListener() {
+            asset.setTakeOutInfo(txtTakeOutInfo.getText().toString());
+            asset.setTakeOutAllowed(swchTakeOut.isChecked());
+
+            Log.d(RegisterActivity.class.toString(), asset.toString());
+            submitData(asset);
+            setFieldsEnabled(false);
+        }
+
+        private void submitData(Asset asset) {
+            Call<RestResult> call = apiService.register(asset);
+            call.enqueue(new Callback<RestResult>() {
                 @Override
-                public void onClick(View v) {
+                public void onResponse(Call<RestResult> call, Response<RestResult> response) {
+                    if (response.code() == 200) {
+                        RestResult restResult = response.body();
+                        if ("OK".equals(restResult.getResult())) {
+                            Toast.makeText(RegisterActivity.this, "Submit successful", Toast.LENGTH_LONG).show();
 
+                            Intent intent = new Intent();
+                            intent.setClassName(BuildConfig.APPLICATION_ID, BuildConfig.APPLICATION_ID + ".activities.MenuActivity");
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            Toast.makeText(RegisterActivity.this, restResult.getMessage(), Toast.LENGTH_LONG).show();
+                            setFieldsEnabled(true);
+                        }
+                    } else {
+                        Toast.makeText(RegisterActivity.this, "Error connecting to server, please try again", Toast.LENGTH_LONG).show();
+                        setFieldsEnabled(true);
+                    }
 
-                    int selectedId = takeOut.getCheckedRadioButtonId();
-                    RadioButton confirmation = (RadioButton)findViewById(selectedId);
+                }
+
+                @Override
+                public void onFailure(Call<RestResult> call, Throwable t) {
+                    Toast.makeText(RegisterActivity.this, "Error connecting to server, please try again", Toast.LENGTH_LONG).show();
+                    t.printStackTrace();
+                    setFieldsEnabled(true);
                 }
             });
+        }
 
-    }
-
-    private void initViews(View view){
-
-        cId = (EditText)view.findViewById(R.id.companyId);
-        oId = (EditText)view.findViewById(R.id.ownerId);
-        name = (EditText)view.findViewById(R.id.name);
-        desc = (EditText)view.findViewById(R.id.description);
-        takeOut = (EditText)view.findViewById(R.id.takeoutInfo);
-    }
-
-
-    public void onClick(View v) {
-
-        switch (v.getId()){
-            case R.id.cancel:
-                goToMenu();
-                break;
-
-            case R.id.submit:
-
-                String companyId = cId.getText().toString();
-                String ownerId = oId.getText().toString();
-                String Aname = name.getText().toString();
-                String description = desc.getText().toString();
-                String takeOutInfo = takeOut.getText().toString();
-
-                if(!companyId.isEmpty() && !ownerId.isEmpty() && !Aname.isEmpty()) {
-
-                    registerProcess(companyId,ownerId,Aname);
-
-                } else {
-
-                    System.out.print("Fields are empty !");
-                }
-                break;
-
+        private void setFieldsEnabled(boolean enabled) {
+            if (enabled) {
+                txtCompanyId.setEnabled(true);
+                txtOwnerId.setEnabled(true);
+                btnSubmit.setEnabled(true);
+                txtDescription.setEnabled(true);
+                txtName.setEnabled(true);
+                txtTakeOutInfo.setEnabled(true);
+            } else {
+                txtCompanyId.setEnabled(false);
+                txtOwnerId.setEnabled(false);
+                btnSubmit.setEnabled(false);
+                txtDescription.setEnabled(false);
+                txtName.setEnabled(false);
+                txtTakeOutInfo.setEnabled(false);
+            }
         }
 
     }
-
-    private void registerProcess(String name, String cId,String oId){
-
-        User user = new User();
-        user.getCompanyId(R.id.companyId);
-        user.getOwnerId(R.id.ownerId);
-        user.getName(name);
-        ServerRequest request = new ServerRequest();
-        request.setUser(user);
-
-        Call<UserInfo> call = apiService.register(User);
-
-        call.enqueue(new Callback<User>(){
-            @Override
-            public void onResponse(Call<ServerResponse> call, retrofit2.Response<ServerResponse> response) {
-
-                ServerResponse resp = response.body();
-            }
-
-            @Override
-            public void onFailure(Call<ServerResponse> call, Throwable t) {
-
-                System.out.print("failed");
-
-            }
-        });
-    }
-
-    private void goToMenu(Throwable t)
-    {
-        Toast.makeText()
-        setContentView(R.layout.activity_menu);
-    }*/
-
-
-
+}
