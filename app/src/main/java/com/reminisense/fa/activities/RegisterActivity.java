@@ -47,6 +47,8 @@ public class RegisterActivity extends AppCompatActivity {
     AppCompatButton btnQrCodeRegister;
     @Bind(R.id.btnRfidRegister)
     AppCompatButton btnRfidRegister;
+    @Bind(R.id.btnBarCodeRegister)
+    AppCompatButton btnBarCodeRegister;
     @Bind(R.id.swchTakeOut)
     Switch swchTakeOut;
     @Bind(R.id.txtTagData)
@@ -75,7 +77,8 @@ public class RegisterActivity extends AppCompatActivity {
         apiService = new RestClient().getApiService();
 
         btnRfidRegister.setOnClickListener(new RfidListener());
-        btnQrCodeRegister.setOnClickListener(new QrBarcodeListener());
+        btnQrCodeRegister.setOnClickListener(new QrListener());
+        btnBarCodeRegister.setOnClickListener(new BarcodeListener());
         btnSubmit.setOnClickListener(new SubmitClickListener());
 
     }
@@ -89,12 +92,21 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    private class QrBarcodeListener implements View.OnClickListener {
+    private class QrListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
             Intent intent = new Intent();
             intent.setClassName(BuildConfig.APPLICATION_ID, BuildConfig.APPLICATION_ID + ".activities.BarcodeScannerActivity");
-            startActivity(intent);
+            startActivityForResult(intent, SCAN_QR);
+        }
+    }
+
+    private class BarcodeListener implements View.OnClickListener{
+        @Override
+        public void onClick(View view){
+            Intent intent = new Intent();
+            intent.setClassName(BuildConfig.APPLICATION_ID, BuildConfig.APPLICATION_ID + ".activities.BarcodeScannerActivity");
+            startActivityForResult(intent, SCAN_BARCODE);
         }
     }
 
@@ -107,8 +119,17 @@ public class RegisterActivity extends AppCompatActivity {
                 txtTagData.setText(data.getDataString());
                 txtTagType.setText(TYPE_RFID);
             }
-        } else if (requestCode == SCAN_BARCODE || requestCode == SCAN_QR) {
+        } else if (requestCode == SCAN_BARCODE /*|| requestCode == SCAN_QR*/) {
             // TODO
+            if(resultCode == RESULT_OK){
+                txtTagData.setText(data.getDataString());
+                txtTagType.setText(TYPE_BARCODE);
+            }
+        } else if (requestCode == SCAN_QR){
+            if(resultCode == RESULT_OK){
+                txtTagData.setText(data.getDataString());
+                txtTagType.setText(TYPE_QRCODE);
+            }
         }
     }
 

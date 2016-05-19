@@ -1,8 +1,11 @@
 package com.reminisense.fa.activities;
 
+import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.hardware.Camera;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
@@ -121,6 +124,8 @@ public class BarcodeScannerActivity extends AppCompatActivity {
             Camera.Parameters parameters = camera.getParameters();
             Camera.Size size = parameters.getPreviewSize();
 
+            String scanResult = "";
+
             Image barcode = new Image(size.width, size.height, "Y800");
             barcode.setData(data);
 
@@ -136,7 +141,7 @@ public class BarcodeScannerActivity extends AppCompatActivity {
 
                     Log.i("<<<<<<Asset Code>>>>> ",
                             "<<<<Bar Code>>> " + sym.getData());
-                    String scanResult = sym.getData().trim();
+                    scanResult = sym.getData().trim();
 
                     showAlertDialog(scanResult);
 
@@ -148,6 +153,9 @@ public class BarcodeScannerActivity extends AppCompatActivity {
                     break;
                 }
             }
+            Intent code = new Intent();
+            code.setData(Uri.parse(scanResult));
+            setResult(Activity.RESULT_OK, code);
         }
     };
 
@@ -167,6 +175,8 @@ public class BarcodeScannerActivity extends AppCompatActivity {
                 .setMessage(message)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
+
+                        finish();
 
                     }
                 })
