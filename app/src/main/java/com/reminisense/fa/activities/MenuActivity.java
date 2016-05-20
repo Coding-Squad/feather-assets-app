@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.reminisense.fa.BuildConfig;
 import com.reminisense.fa.R;
+import com.reminisense.fa.models.UserInfo;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -15,10 +16,13 @@ import butterknife.ButterKnife;
 /**
  * Created by Nigs on 2016-05-11.
  */
+
 public class MenuActivity extends AppCompatActivity {
     @Bind(R.id.btnRfid) AppCompatButton btnRfid;
     @Bind(R.id.btnQr) AppCompatButton btnQr;
     @Bind(R.id.btnReg) AppCompatButton btnReg;
+
+    UserInfo userInfo = new UserInfo();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +30,27 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
         ButterKnife.bind(this);
 
+        btnRfid.findViewById(R.id.btnRfid);
+        btnQr.findViewById(R.id.btnQr);
+        btnReg.findViewById(R.id.btnReg);
+
+        if(userInfo.getUserLevel() == 1){
+            btnRfid.setVisibility(View.VISIBLE);
+            btnQr.setVisibility(View.VISIBLE);
+            btnReg.setVisibility(View.VISIBLE);
+        } else if(userInfo.getUserLevel() == 2){
+            btnRfid.setVisibility(View.VISIBLE);
+            btnQr.setVisibility(View.VISIBLE);
+            btnReg.setVisibility(View.GONE);
+        } else {
+            btnRfid.setVisibility(View.GONE);
+            btnQr.setVisibility(View.GONE);
+            btnReg.setVisibility(View.GONE);
+        }
+
         btnRfid.setOnClickListener(new RfidClickListener());
         btnQr.setOnClickListener(new QrClickListener());
         btnReg.setOnClickListener(new RegisterClickListener());
-
     }
 
     private class RfidClickListener implements View.OnClickListener {

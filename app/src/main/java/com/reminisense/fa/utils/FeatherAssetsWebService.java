@@ -1,8 +1,10 @@
 package com.reminisense.fa.utils;
 
 import com.reminisense.fa.models.Asset;
+import com.reminisense.fa.models.LoginInfo;
 import com.reminisense.fa.models.RestResult;
 import com.reminisense.fa.models.TransactRequest;
+import com.reminisense.fa.models.UserInfo;
 import com.reminisense.fa.models.VerifyRequest;
 import com.reminisense.fa.models.VerifyResult;
 
@@ -21,7 +23,7 @@ public interface FeatherAssetsWebService {
     @POST("/verify")
     Call<VerifyResult> verify (@Body VerifyRequest request);
 
-    @POST
-    Call<RestResult> transact (@Body TransactRequest request);
+    @POST("/login")
+    Call<UserInfo> login (@Body LoginInfo loginInfo);
 
 }
