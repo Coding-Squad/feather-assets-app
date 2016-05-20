@@ -22,7 +22,7 @@ public class MenuActivity extends AppCompatActivity {
     @Bind(R.id.btnQr) AppCompatButton btnQr;
     @Bind(R.id.btnReg) AppCompatButton btnReg;
 
-    LoginResult loginResult = new LoginResult();
+    //LoginResult loginResult = new LoginResult();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class MenuActivity extends AppCompatActivity {
         btnQr.findViewById(R.id.btnQr);
         btnReg.findViewById(R.id.btnReg);
 
-        if(loginResult.getUserLevel() == 1){
+        /*if(loginResult.getUserLevel() == 1){
             btnRfid.setVisibility(View.VISIBLE);
             btnQr.setVisibility(View.VISIBLE);
             btnReg.setVisibility(View.VISIBLE);
@@ -46,7 +46,7 @@ public class MenuActivity extends AppCompatActivity {
             btnRfid.setVisibility(View.GONE);
             btnQr.setVisibility(View.GONE);
             btnReg.setVisibility(View.GONE);
-        }
+        }*/
 
         btnRfid.setOnClickListener(new RfidClickListener());
         btnQr.setOnClickListener(new QrClickListener());
