@@ -32,6 +32,8 @@ public class NfcScannerActivity extends NfcActivity {
         setContentView(R.layout.activity_nfcscanner);
         ButterKnife.bind(this);
 
+        setTitle("RFID Tag");
+
         btnOk.setOnClickListener(new ButtonAcceptListener());
     }
 

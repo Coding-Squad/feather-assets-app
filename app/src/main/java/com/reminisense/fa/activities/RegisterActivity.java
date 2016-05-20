@@ -31,8 +31,6 @@ import retrofit2.Response;
 public class RegisterActivity extends AppCompatActivity {
 
     private static final String Submit = "Submitting... ";
-    @Bind(R.id.txtCompanyId)
-    EditText txtCompanyId;
     @Bind(R.id.txtOwnerId)
     EditText txtOwnerId;
     @Bind(R.id.txtName)
@@ -73,6 +71,8 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registerassets);
         ButterKnife.bind(this);
+
+        setTitle("Register Asset");
 
         //initialize api services
         apiService = new RestClient().getApiService();
@@ -137,7 +137,6 @@ public class RegisterActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             Asset asset = new Asset();
-            asset.setCompanyId(Integer.parseInt(txtCompanyId.getText().toString()));
             asset.setOwnerId(Integer.parseInt(txtOwnerId.getText().toString()));
             asset.setName(txtName.getText().toString());
             asset.setDescription(txtDescription.getText().toString());
@@ -199,14 +198,12 @@ public class RegisterActivity extends AppCompatActivity {
 
         private void setFieldsEnabled(boolean enabled) {
             if (enabled) {
-                txtCompanyId.setEnabled(true);
                 txtOwnerId.setEnabled(true);
                 btnSubmit.setEnabled(true);
                 txtDescription.setEnabled(true);
                 txtName.setEnabled(true);
                 txtTakeOutInfo.setEnabled(true);
             } else {
-                txtCompanyId.setEnabled(false);
                 txtOwnerId.setEnabled(false);
                 btnSubmit.setEnabled(false);
                 txtDescription.setEnabled(false);
