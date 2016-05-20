@@ -74,6 +74,7 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_registerassets);
         ButterKnife.bind(this);
 
+        //initialize api services
         apiService = new RestClient().getApiService();
 
         btnRfidRegister.setOnClickListener(new RfidListener());
@@ -120,7 +121,6 @@ public class RegisterActivity extends AppCompatActivity {
                 txtTagType.setText(TYPE_RFID);
             }
         } else if (requestCode == SCAN_BARCODE /*|| requestCode == SCAN_QR*/) {
-            // TODO
             if(resultCode == RESULT_OK){
                 txtTagData.setText(data.getDataString());
                 txtTagType.setText(TYPE_BARCODE);
