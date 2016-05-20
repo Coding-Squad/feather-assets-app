@@ -3,9 +3,10 @@ package com.reminisense.fa.models;
 /**
  * Created by USER on 5/19/2016.
  */
-public class UserInfo {
+public class LoginResult {
 
-    private int success;
+    private String result;
+    private String message;
     private int userLevel;
     private int companyId;
     private String name;
@@ -13,12 +14,20 @@ public class UserInfo {
     private String firstName;
     private String lastName;
 
-    public int getSuccess() {
-        return success;
+    public String getResult() {
+        return result;
     }
 
-    public void setSuccess(int success) {
-        this.success = success;
+    public void setResult(String result) {
+        this.result = result;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public int getUserLevel() {

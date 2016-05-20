@@ -8,7 +8,7 @@ import android.view.View;
 
 import com.reminisense.fa.BuildConfig;
 import com.reminisense.fa.R;
-import com.reminisense.fa.models.UserInfo;
+import com.reminisense.fa.models.LoginResult;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -22,7 +22,7 @@ public class MenuActivity extends AppCompatActivity {
     @Bind(R.id.btnQr) AppCompatButton btnQr;
     @Bind(R.id.btnReg) AppCompatButton btnReg;
 
-    UserInfo userInfo = new UserInfo();
+    LoginResult loginResult = new LoginResult();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +34,11 @@ public class MenuActivity extends AppCompatActivity {
         btnQr.findViewById(R.id.btnQr);
         btnReg.findViewById(R.id.btnReg);
 
-        if(userInfo.getUserLevel() == 1){
+        if(loginResult.getUserLevel() == 1){
             btnRfid.setVisibility(View.VISIBLE);
             btnQr.setVisibility(View.VISIBLE);
             btnReg.setVisibility(View.VISIBLE);
-        } else if(userInfo.getUserLevel() == 2){
+        } else if(loginResult.getUserLevel() == 2){
             btnRfid.setVisibility(View.VISIBLE);
             btnQr.setVisibility(View.VISIBLE);
             btnReg.setVisibility(View.GONE);

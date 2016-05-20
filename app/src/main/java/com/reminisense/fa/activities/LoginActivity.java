@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -13,7 +12,7 @@ import android.widget.Toast;
 import com.reminisense.fa.BuildConfig;
 import com.reminisense.fa.R;
 import com.reminisense.fa.models.LoginInfo;
-import com.reminisense.fa.models.UserInfo;
+import com.reminisense.fa.models.LoginResult;
 import com.reminisense.fa.utils.FeatherAssetsWebService;
 import com.reminisense.fa.utils.RestClient;
 
@@ -73,13 +72,13 @@ public class LoginActivity extends AppCompatActivity {
     private void loginByEmail(String email, String password) {
         LoginInfo loginInfo = new LoginInfo(email, password);
 
-        Call<UserInfo> call = apiService.login(loginInfo);
-        call.enqueue(new Callback<UserInfo>() {
+        Call<LoginResult> call = apiService.login(loginInfo);
+        call.enqueue(new Callback<LoginResult>() {
             @Override
-            public void onResponse(Call<UserInfo> call, Response<UserInfo> response) {
+            public void onResponse(Call<LoginResult> call, Response<LoginResult> response) {
                 if(response.code() == 200) {
-                    UserInfo userInfo = response.body();
-                    if(userInfo.getSuccess() == 1) {
+                    LoginResult loginResult = response.body();
+                    if("OK".equals(loginResult.getResult())) {
                         Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_LONG).show();
                         setMessage(MESSAGE_WELCOME);
 
@@ -100,7 +99,7 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<UserInfo> call, Throwable t) {
+            public void onFailure(Call<LoginResult> call, Throwable t) {
                 Toast.makeText(LoginActivity.this, "Error connecting to server, please try again", Toast.LENGTH_LONG).show();
                 t.printStackTrace();
                 setFieldsEnabled(true);
