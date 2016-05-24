@@ -5,45 +5,26 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/regForm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Choose what type of tag to scan"
-        android:paddingTop="100dp"
+        android:text="Verify Asset"
+        android:paddingTop="50dp"
         android:paddingBottom="30dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_gravity="center_horizontal" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center">
-
     <Button
-    style="?android:attr/buttonStyleSmall"
+        style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
+        android:text="SCAN"
         android:background="@android:color/holo_orange_dark"
-        android:paddingLeft="20dip"
-        android:paddingRight="20dip"
-        android:text="QR/Barcode"
-        android:id="@+id/btnQr"
+        android:textColor="@color/white"
+        android:paddingLeft="30dip"
+        android:paddingRight="26dip"
+        android:id="@+id/btnScan"
         android:layout_gravity="center_horizontal" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@android:color/holo_orange_dark"
-        android:textColor="@color/white"
-        android:paddingLeft="20dip"
-        android:paddingRight="20dip"
-        android:layout_marginLeft="30dp"
-        android:text="RFID Tag"
-        android:id="@+id/btnRfid" />
-
-    </LinearLayout>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
