@@ -22,8 +22,8 @@ public interface FeatherAssetsWebService {
     @POST("/api/register/asset")
     Call<RestResult> registerAsset (@Body Asset asset);
 
-    @POST("/verify")
-    Call<VerifyResult> verify (@Body VerifyRequest request);
+    @GET("/api/asset")
+    Call<Asset> verify (@Path("tag") String tag);
 
     @POST("/login")
     Call<LoginResult> login (@Body LoginInfo loginInfo);

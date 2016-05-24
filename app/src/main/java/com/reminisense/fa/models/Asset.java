@@ -6,7 +6,7 @@ package com.reminisense.fa.models;
 public class Asset {
 
     private int companyId;
-    private int ownerId;
+    private int ownerName;
     private String name;
     private String description;
     private String takeOutInfo;;
@@ -23,12 +23,12 @@ public class Asset {
         this.companyId = companyId;
     }
 
-    public int getOwnerId() {
-        return ownerId;
+    public int getOwnerName() {
+        return ownerName;
     }
 
-    public void setOwnerId(int ownerId) {
-        this.ownerId = ownerId;
+    public void setOwnerName(int ownerName) {
+        this.ownerName = ownerName;
     }
 
     public String getName() {
@@ -91,7 +91,7 @@ public class Asset {
     public String toString() {
         return "Asset{" +
                 "companyId=" + companyId +
-                ", ownerId=" + ownerId +
+                ", ownerName=" + ownerName +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", takeOutInfo='" + takeOutInfo + '\'' +

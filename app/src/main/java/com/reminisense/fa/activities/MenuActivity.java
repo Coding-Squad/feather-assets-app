@@ -23,8 +23,9 @@ import retrofit2.Call;
  */
 
 public class MenuActivity extends AppCompatActivity {
-    @Bind(R.id.btnRfid) AppCompatButton btnRfid;
-    @Bind(R.id.btnQr) AppCompatButton btnQr;
+    //@Bind(R.id.btnRfid) AppCompatButton btnRfid;
+    //@Bind(R.id.btnQr) AppCompatButton btnQr;
+    @Bind(R.id.btnScan) AppCompatButton btnScan;
     @Bind(R.id.btnRegAsset) AppCompatButton btnRegAsset;
     @Bind(R.id.btnRegUser) AppCompatButton btnRegUser;
 
@@ -38,9 +39,10 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
         ButterKnife.bind(this);
 
-        btnRfid.findViewById(R.id.btnRfid);
-        btnQr.findViewById(R.id.btnQr);
-        btnRegAsset.findViewById(R.id.btnReg);
+        //btnRfid.findViewById(R.id.btnRfid);
+        //btnQr.findViewById(R.id.btnQr);
+        //btnRegAsset.findViewById(R.id.btnRegAsset);
+        //btnRegUser.findViewById(R.id.btnRegUser);
 
         //GET USER ID
         //LoginResult loginResult = CacheManager.retrieveLoginResult(MenuActivity.this);
@@ -59,13 +61,14 @@ public class MenuActivity extends AppCompatActivity {
             btnReg.setVisibility(View.GONE);
         }*/
 
-        btnRfid.setOnClickListener(new RfidClickListener());
-        btnQr.setOnClickListener(new QrClickListener());
+        //btnRfid.setOnClickListener(new RfidClickListener());
+        //btnQr.setOnClickListener(new QrClickListener());
+        btnScan.setOnClickListener(new ScanClickListener());
         btnRegAsset.setOnClickListener(new RegisterAssetClickListener());
         btnRegUser.setOnClickListener(new RegisterUserClickListener());
     }
 
-    private class RfidClickListener implements View.OnClickListener {
+    /*private class RfidClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
             Intent intent = new Intent();
@@ -78,6 +81,14 @@ public class MenuActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             Intent intent = new Intent(view.getContext(), BarcodeScannerActivity.class);
+            startActivity(intent);
+        }
+    }*/
+
+    private class ScanClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View view){
+            Intent intent = new Intent(view.getContext(), ScanActivity.class);
             startActivity(intent);
         }
     }
