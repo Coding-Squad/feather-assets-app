@@ -53,8 +53,6 @@ public class RegisterActivity extends AppCompatActivity {
     TextView txtTagData;
     @Bind(R.id.txtTagType)
     TextView txtTagType;
-    @Bind(R.id.regUser)
-    AppCompatButton registerUser;
 
     // Request Codes
     private static final int SCAN_RFID = 1;
@@ -83,7 +81,6 @@ public class RegisterActivity extends AppCompatActivity {
         btnQrCodeRegister.setOnClickListener(new QrListener());
         btnBarCodeRegister.setOnClickListener(new BarcodeListener());
         btnSubmit.setOnClickListener(new SubmitClickListener());
-        registerUser.setOnClickListener(new RegUserClickListener());
 
     }
 
@@ -111,15 +108,6 @@ public class RegisterActivity extends AppCompatActivity {
             Intent intent = new Intent();
             intent.setClassName(BuildConfig.APPLICATION_ID, BuildConfig.APPLICATION_ID + ".activities.BarcodeScannerActivity");
             startActivityForResult(intent, SCAN_BARCODE);
-        }
-    }
-
-    private class RegUserClickListener implements View.OnClickListener{
-        @Override
-        public void onClick(View view){
-            Intent intent = new Intent();
-            intent.setClassName(BuildConfig.APPLICATION_ID, BuildConfig.APPLICATION_ID + ".activities.RegisterUserActivity");
-            startActivity(intent);
         }
     }
 
@@ -175,7 +163,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         private void submitData(Asset asset) {
-            Call<RestResult> call = apiService.register(asset);
+            Call<RestResult> call = apiService.registerAsset(asset);
             call.enqueue(new Callback<RestResult>() {
                 @Override
                 public void onResponse(Call<RestResult> call, Response<RestResult> response) {

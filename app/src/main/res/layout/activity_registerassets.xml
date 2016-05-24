@@ -34,17 +34,6 @@
             android:ems="10"
             android:inputType="number" />
 
-        <Button
-            android:id="@+id/regUser"
-            android:layout_width="200dip"
-            android:layout_height="40dip"
-            android:background="@android:color/holo_orange_dark"
-            android:textColor="@color/white"
-            android:paddingLeft="5dip"
-            android:paddingRight="5dip"
-            android:layout_gravity="center_horizontal"
-            android:text="Register User" />
-
         <TextView
             android:id="@+id/nameTitle"
             android:layout_width="wrap_content"

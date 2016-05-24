@@ -73,7 +73,7 @@ public class RegisterUserActivity extends AppCompatActivity {
         }
 
             private void submitData(User user){
-                Call<RestResult> call = apiService.register(user);
+                Call<RestResult> call = apiService.registerUser(user);
                 call.enqueue(new Callback<RestResult>() {
                     @Override
                     public void onResponse(Call<RestResult> call, Response<RestResult> response) {

@@ -47,7 +47,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Register Asset"
+        android:text="Register"
         android:paddingTop="50dp"
         android:paddingBottom="30dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -56,12 +56,25 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Register"
+        android:text="Register Asset"
         android:background="@android:color/holo_orange_dark"
         android:textColor="@color/white"
         android:paddingLeft="30dip"
         android:paddingRight="26dip"
-        android:id="@+id/btnReg"
+        android:id="@+id/btnRegAsset"
+        android:layout_gravity="center_horizontal" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Register User"
+        android:background="@android:color/holo_orange_dark"
+        android:textColor="@color/white"
+        android:paddingLeft="30dip"
+        android:paddingRight="26dip"
+        android:id="@+id/btnRegUser"
         android:layout_gravity="center_horizontal" />
 
 </LinearLayout>

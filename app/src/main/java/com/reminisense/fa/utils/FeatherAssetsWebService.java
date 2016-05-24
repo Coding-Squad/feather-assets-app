@@ -19,8 +19,8 @@ import retrofit2.http.Path;
  */
 public interface FeatherAssetsWebService {
 
-    @POST("/register/asset")
-    Call<RestResult> register (@Body Asset asset);
+    @POST("/api/register/asset")
+    Call<RestResult> registerAsset (@Body Asset asset);
 
     @POST("/verify")
     Call<VerifyResult> verify (@Body VerifyRequest request);
@@ -30,10 +30,10 @@ public interface FeatherAssetsWebService {
     /*
     test post below
      */
-    @POST("/register/user")
-    Call<RestResult> register (@Body User user);
+    @POST("/api/user/add")
+    Call<RestResult> registerUser (@Body User user);
 
-    @GET("/user")
+    /*@GET("/user")
     Call<User> getUserId (@Path("userId") String userId);
-
+    */
 }
