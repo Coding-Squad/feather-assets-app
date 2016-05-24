@@ -47,6 +47,8 @@ public class BarcodeScannerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_barcodescanner);
 
+        setTitle("Barcode/QR Scanner");
+
         initControls();
     }
 

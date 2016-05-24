@@ -31,10 +31,8 @@ import retrofit2.Response;
 public class RegisterActivity extends AppCompatActivity {
 
     private static final String Submit = "Submitting... ";
-    @Bind(R.id.txtCompanyId)
-    EditText txtCompanyId;
-    @Bind(R.id.txtOwnerId)
-    EditText txtOwnerId;
+    @Bind(R.id.txtOwner)
+    EditText txtOwner;
     @Bind(R.id.txtName)
     EditText txtName;
     @Bind(R.id.txtDescription)
@@ -74,6 +72,9 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_registerassets);
         ButterKnife.bind(this);
 
+        setTitle("Register Asset");
+
+        //initialize api services
         apiService = new RestClient().getApiService();
 
         btnRfidRegister.setOnClickListener(new RfidListener());
@@ -120,7 +121,6 @@ public class RegisterActivity extends AppCompatActivity {
                 txtTagType.setText(TYPE_RFID);
             }
         } else if (requestCode == SCAN_BARCODE /*|| requestCode == SCAN_QR*/) {
-            // TODO
             if(resultCode == RESULT_OK){
                 txtTagData.setText(data.getDataString());
                 txtTagType.setText(TYPE_BARCODE);
@@ -137,8 +137,7 @@ public class RegisterActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             Asset asset = new Asset();
-            asset.setCompanyId(Integer.parseInt(txtCompanyId.getText().toString()));
-            asset.setOwnerId(Integer.parseInt(txtOwnerId.getText().toString()));
+            asset.setOwnerId(Integer.parseInt(txtOwner.getText().toString()));
             asset.setName(txtName.getText().toString());
             asset.setDescription(txtDescription.getText().toString());
 
@@ -164,7 +163,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         private void submitData(Asset asset) {
-            Call<RestResult> call = apiService.register(asset);
+            Call<RestResult> call = apiService.registerAsset(asset);
             call.enqueue(new Callback<RestResult>() {
                 @Override
                 public void onResponse(Call<RestResult> call, Response<RestResult> response) {
@@ -199,19 +198,23 @@ public class RegisterActivity extends AppCompatActivity {
 
         private void setFieldsEnabled(boolean enabled) {
             if (enabled) {
-                txtCompanyId.setEnabled(true);
-                txtOwnerId.setEnabled(true);
+                txtOwner.setEnabled(true);
                 btnSubmit.setEnabled(true);
                 txtDescription.setEnabled(true);
                 txtName.setEnabled(true);
                 txtTakeOutInfo.setEnabled(true);
+                btnBarCodeRegister.setEnabled(true);
+                btnQrCodeRegister.setEnabled(true);
+                btnRfidRegister.setEnabled(true);
             } else {
-                txtCompanyId.setEnabled(false);
-                txtOwnerId.setEnabled(false);
+                txtOwner.setEnabled(false);
                 btnSubmit.setEnabled(false);
                 txtDescription.setEnabled(false);
                 txtName.setEnabled(false);
                 txtTakeOutInfo.setEnabled(false);
+                btnBarCodeRegister.setEnabled(true);
+                btnQrCodeRegister.setEnabled(true);
+                btnRfidRegister.setEnabled(true);
             }
         }
 

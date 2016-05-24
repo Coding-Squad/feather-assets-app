@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/fnTextTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textSize="16dp"
+            android:textColor="@color/black"
+            android:paddingTop="10dp"
+            android:text="First Name"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/fnText"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:ems="10" />
+
+        <TextView
+            android:id="@+id/lnTextTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textSize="16dp"
+            android:textColor="@color/black"
+            android:paddingTop="10dp"
+            android:text="Last Name"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lnText"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:ems="10" />
+
+        <TextView
+            android:id="@+id/posTextTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textSize="16dp"
+            android:textColor="@color/black"
+            android:paddingTop="10dp"
+            android:text="Position"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/posText"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:ems="10" />
+
+        <TextView
+            android:id="@+id/descTextTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textSize="16dp"
+            android:textColor="@color/black"
+            android:paddingTop="10dp"
+            android:text="Description"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/descText"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:ems="10" />
+
+        <TextView
+            android:id="@+id/emailTextTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textSize="16dp"
+            android:textColor="@color/black"
+            android:paddingTop="10dp"
+            android:text="E-Mail"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/emailText"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:ems="10" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Submit"
+            android:background="@android:color/holo_orange_dark"
+            android:textColor="@color/white"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="50dp"
+            android:id="@+id/btnSbmt" />
+
+    </LinearLayout>
+</ScrollView>

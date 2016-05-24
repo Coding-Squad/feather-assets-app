@@ -15,38 +15,22 @@
 
 
         <TextView
-            android:id="@+id/regForm"
+            android:id="@+id/ownerTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="Register Asset"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <TextView
-            android:id="@+id/cIdTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Company ID"
+            android:layout_marginLeft="10dp"
+            android:textSize="16dp"
+            android:textColor="@color/black"
+            android:paddingTop="10dp"
+            android:text="Owner"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <EditText
-            android:id="@+id/txtCompanyId"
+            android:id="@+id/txtOwner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="number" />
-
-        <TextView
-            android:id="@+id/oIdTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Owner ID"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <EditText
-            android:id="@+id/txtOwnerId"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
             android:ems="10"
             android:inputType="number" />
 
@@ -54,6 +38,10 @@
             android:id="@+id/nameTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:paddingTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="16dp"
             android:text="Asset Name"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -61,6 +49,8 @@
             android:id="@+id/txtName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
             android:ems="10"
             android:inputType="text" />
 
@@ -68,6 +58,10 @@
             android:id="@+id/descTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:layout_marginLeft="10dp"
+            android:textSize="16dp"
+            android:paddingTop="10dp"
             android:text="Description"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -75,13 +69,21 @@
             android:id="@+id/txtDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
             android:ems="10"
             android:inputType="textLongMessage" />
 
         <Switch
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="16dp"
             android:text="Take-out Allowed?"
+            android:layout_marginLeft="10dp"
+            android:textOff="NO"
+            android:textOn="YES"
+            android:paddingTop="8dp"
+            android:paddingBottom="15dp"
             android:id="@+id/swchTakeOut"
             android:checked="false"
             android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -89,7 +91,10 @@
         <TextView
             android:id="@+id/infoTitle"
             android:layout_width="wrap_content"
+            android:layout_marginLeft="10dp"
             android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:textColor="@color/black"
             android:text="Take Out Note"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -97,31 +102,64 @@
             android:id="@+id/txtTakeOutInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:hint="(Optional)"
             android:ems="10"
             android:inputType="textLongMessage" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:paddingTop="10dp"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            android:text="Choose what type of tag to save"
+            android:paddingBottom="15dp"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_gravity="center">
 
         <Button
             android:id="@+id/btnQrCodeRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@android:color/holo_orange_dark"
+            android:textColor="@color/white"
+            android:paddingLeft="10dip"
+            android:paddingRight="15dip"
+            android:layout_marginLeft="15dp"
             android:text="QR Code" />
 
             <Button
                 android:id="@+id/btnBarCodeRegister"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@android:color/holo_orange_dark"
+                android:textColor="@color/white"
+                android:paddingLeft="10dip"
+                android:paddingRight="10dip"
+                android:layout_marginLeft="30dp"
                 android:text="Bar Code" />
 
-        </LinearLayout>
+            <Button
+                android:id="@+id/btnRfidRegister"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/holo_orange_dark"
+                android:textColor="@color/white"
+                android:paddingLeft="10dip"
+                android:paddingRight="10dip"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="15dp"
+                android:text="RFID" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/txtTagType" />
+        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
@@ -129,25 +167,25 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/txtTagData"
             android:layout_gravity="center_horizontal"
-            android:text="NONE" />
+            android:text="NONE"
+            android:paddingBottom="25dp"/>
 
-        <Button
-            android:id="@+id/btnRfidRegister"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="RFID tag" />
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/txtTagType" />
 
         <Button
             android:id="@+id/btnSubmit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SUBMIT" />
-
-        <Button
-            android:id="@+id/btnCancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="CANCEL" />
+            android:background="@android:color/holo_orange_dark"
+            android:textColor="@color/white"
+            android:paddingLeft="100dip"
+            android:paddingRight="100dip"
+            android:text="SUBMIT"
+            android:layout_gravity="center"/>
 
 
     </LinearLayout>
