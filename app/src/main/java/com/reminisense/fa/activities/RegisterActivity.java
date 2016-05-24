@@ -31,8 +31,8 @@ import retrofit2.Response;
 public class RegisterActivity extends AppCompatActivity {
 
     private static final String Submit = "Submitting... ";
-    @Bind(R.id.txtOwnerId)
-    EditText txtOwnerId;
+    @Bind(R.id.txtOwner)
+    EditText txtOwner;
     @Bind(R.id.txtName)
     EditText txtName;
     @Bind(R.id.txtDescription)
@@ -53,6 +53,8 @@ public class RegisterActivity extends AppCompatActivity {
     TextView txtTagData;
     @Bind(R.id.txtTagType)
     TextView txtTagType;
+    @Bind(R.id.regUser)
+    AppCompatButton registerUser;
 
     // Request Codes
     private static final int SCAN_RFID = 1;
@@ -81,6 +83,7 @@ public class RegisterActivity extends AppCompatActivity {
         btnQrCodeRegister.setOnClickListener(new QrListener());
         btnBarCodeRegister.setOnClickListener(new BarcodeListener());
         btnSubmit.setOnClickListener(new SubmitClickListener());
+        registerUser.setOnClickListener(new RegUserClickListener());
 
     }
 
@@ -111,6 +114,15 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
+    private class RegUserClickListener implements View.OnClickListener{
+        @Override
+        public void onClick(View view){
+            Intent intent = new Intent();
+            intent.setClassName(BuildConfig.APPLICATION_ID, BuildConfig.APPLICATION_ID + ".activities.RegisterUserActivity");
+            startActivity(intent);
+        }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request we're responding to
@@ -137,7 +149,7 @@ public class RegisterActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             Asset asset = new Asset();
-            asset.setOwnerId(Integer.parseInt(txtOwnerId.getText().toString()));
+            asset.setOwnerId(Integer.parseInt(txtOwner.getText().toString()));
             asset.setName(txtName.getText().toString());
             asset.setDescription(txtDescription.getText().toString());
 
@@ -198,17 +210,23 @@ public class RegisterActivity extends AppCompatActivity {
 
         private void setFieldsEnabled(boolean enabled) {
             if (enabled) {
-                txtOwnerId.setEnabled(true);
+                txtOwner.setEnabled(true);
                 btnSubmit.setEnabled(true);
                 txtDescription.setEnabled(true);
                 txtName.setEnabled(true);
                 txtTakeOutInfo.setEnabled(true);
+                btnBarCodeRegister.setEnabled(true);
+                btnQrCodeRegister.setEnabled(true);
+                btnRfidRegister.setEnabled(true);
             } else {
-                txtOwnerId.setEnabled(false);
+                txtOwner.setEnabled(false);
                 btnSubmit.setEnabled(false);
                 txtDescription.setEnabled(false);
                 txtName.setEnabled(false);
                 txtTakeOutInfo.setEnabled(false);
+                btnBarCodeRegister.setEnabled(true);
+                btnQrCodeRegister.setEnabled(true);
+                btnRfidRegister.setEnabled(true);
             }
         }
 

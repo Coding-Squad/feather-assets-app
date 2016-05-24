@@ -63,4 +63,5 @@
         android:paddingRight="26dip"
         android:id="@+id/btnReg"
         android:layout_gravity="center_horizontal" />
+
 </LinearLayout>

@@ -15,24 +15,35 @@
 
 
         <TextView
-            android:id="@+id/oIdTitle"
+            android:id="@+id/ownerTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:textSize="16dp"
             android:textColor="@color/black"
             android:paddingTop="10dp"
-            android:text="Owner ID"
+            android:text="Owner"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <EditText
-            android:id="@+id/txtOwnerId"
+            android:id="@+id/txtOwner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="20dp"
             android:ems="10"
             android:inputType="number" />
+
+        <Button
+            android:id="@+id/regUser"
+            android:layout_width="200dip"
+            android:layout_height="40dip"
+            android:background="@android:color/holo_orange_dark"
+            android:textColor="@color/white"
+            android:paddingLeft="5dip"
+            android:paddingRight="5dip"
+            android:layout_gravity="center_horizontal"
+            android:text="Register User" />
 
         <TextView
             android:id="@+id/nameTitle"

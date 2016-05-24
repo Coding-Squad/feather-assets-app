@@ -6,10 +6,13 @@ import com.reminisense.fa.models.RestResult;
 import com.reminisense.fa.models.LoginResult;
 import com.reminisense.fa.models.VerifyRequest;
 import com.reminisense.fa.models.VerifyResult;
+import com.reminisense.fa.models.User;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 /**
  * Retrofit interface definitions to communicate with our API.
@@ -24,5 +27,13 @@ public interface FeatherAssetsWebService {
 
     @POST("/login")
     Call<LoginResult> login (@Body LoginInfo loginInfo);
+    /*
+    test post below
+     */
+    @POST("/register/user")
+    Call<RestResult> register (@Body User user);
+
+    @GET("/user")
+    Call<User> getUserId (@Path("userId") String userId);
 
 }
