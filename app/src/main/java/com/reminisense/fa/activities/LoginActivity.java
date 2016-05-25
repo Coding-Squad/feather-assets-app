@@ -71,43 +71,42 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void loginByEmail(String email, String password) {
-        //LoginInfo loginInfo = new LoginInfo(email, password);
+        LoginInfo loginInfo = new LoginInfo(email, password);
 
-        //Call<LoginResult> call = apiService.login(loginInfo);
-        //call.enqueue(new Callback<LoginResult>() {
-            //@Override
-            //public void onResponse(Call<LoginResult> call, Response<LoginResult> response) {
-                //if(response.code() == 200) {
-                    //LoginResult loginResult = response.body();
-                    //if("OK".equals(loginResult.getResult())) {
-                        //CacheManager.storeLoginResult(LoginActivity.this, loginResult);
-                        //Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_LONG).show();
-                        //setMessage(MESSAGE_WELCOME);
+        Call<LoginResult> call = apiService.login(loginInfo);
+        call.enqueue(new Callback<LoginResult>() {
+            @Override
+            public void onResponse(Call<LoginResult> call, Response<LoginResult> response) {
+                if (response.code() == 200) {
+                    LoginResult loginResult = response.body();
+                    CacheManager.storeLoginResult(LoginActivity.this, loginResult);
+                    Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_LONG).show();
+                    setMessage(MESSAGE_WELCOME);
 
-                        Intent intent = new Intent();
-                        intent.setClassName(BuildConfig.APPLICATION_ID, BuildConfig.APPLICATION_ID + ".activities.MenuActivity");
-                        startActivity(intent);
-                        finish();
-                    //} else {
-                        //Toast.makeText(LoginActivity.this, "Error logging in, please try again", Toast.LENGTH_LONG).show();
-                        //setFieldsEnabled(true);
-                        //setMessage(MESSAGE_FAILED);
-                    //}
-                //} else {
-                    //Toast.makeText(LoginActivity.this, "Error connecting to server, please try again", Toast.LENGTH_LONG).show();
-                    //setFieldsEnabled(true);
-                    //setMessage(MESSAGE_FAILED);
-                //}
-            //}
+                    Intent intent = new Intent();
+                    intent.setClassName(BuildConfig.APPLICATION_ID, BuildConfig.APPLICATION_ID + ".activities.MenuActivity");
+                    startActivity(intent);
+                    finish();
+                } else if (response.code() == 401) {
+                    Toast.makeText(LoginActivity.this, "Authentication error.", Toast.LENGTH_LONG).show();
+                    setFieldsEnabled(true);
+                    setMessage(MESSAGE_FAILED);
 
-            //@Override
-            //public void onFailure(Call<LoginResult> call, Throwable t) {
-                //Toast.makeText(LoginActivity.this, "Error connecting to server, please try again", Toast.LENGTH_LONG).show();
-                //t.printStackTrace();
-                //setFieldsEnabled(true);
-                //setMessage(MESSAGE_FAILED);
-            //}
-        //});
+                } else {
+                    Toast.makeText(LoginActivity.this, "Error connecting to server, please try again", Toast.LENGTH_LONG).show();
+                    setFieldsEnabled(true);
+                    setMessage(MESSAGE_FAILED);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginResult> call, Throwable t) {
+                Toast.makeText(LoginActivity.this, "Error connecting to server, please try again", Toast.LENGTH_LONG).show();
+                t.printStackTrace();
+                setFieldsEnabled(true);
+                setMessage(MESSAGE_FAILED);
+            }
+        });
     }
 
     private void setFieldsEnabled(boolean enabled) {
