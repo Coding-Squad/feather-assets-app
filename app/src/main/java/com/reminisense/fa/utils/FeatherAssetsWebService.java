@@ -2,10 +2,8 @@ package com.reminisense.fa.utils;
 
 import com.reminisense.fa.models.Asset;
 import com.reminisense.fa.models.LoginInfo;
-import com.reminisense.fa.models.RestResult;
 import com.reminisense.fa.models.LoginResult;
-import com.reminisense.fa.models.VerifyRequest;
-import com.reminisense.fa.models.VerifyResult;
+import com.reminisense.fa.models.RestResult;
 import com.reminisense.fa.models.User;
 
 import retrofit2.Call;
@@ -23,10 +21,10 @@ public interface FeatherAssetsWebService {
     String BASE_URL = "http://feather-assets.herokuapp.com/";
     String X_AUTH_TOKEN = "X-Auth-Token";
 
-    @POST("/api/register/asset")
+    @POST("/api/asset/add")
     Call<RestResult> registerAsset(@Body Asset asset, @Header(X_AUTH_TOKEN) String xAuthToken);
 
-    @GET("/api/asset")
+    @GET("/api/verify")
     Call<Asset> verify(@Path("tag") String tag, @Header(X_AUTH_TOKEN) String xAuthToken);
 
     @POST("/login")

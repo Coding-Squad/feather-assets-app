@@ -5,7 +5,7 @@ package com.reminisense.fa.models;
  */
 public class LoginResult {
     private int companyId;
-    private String companyName;
+    private String name;
     private int userId;
     private String firstName;
     private String lastName;
@@ -20,12 +20,12 @@ public class LoginResult {
         this.companyId = companyId;
     }
 
-    public String getCompanyName() {
-        return companyName;
+    public String getName() {
+        return name;
     }
 
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getUserId() {

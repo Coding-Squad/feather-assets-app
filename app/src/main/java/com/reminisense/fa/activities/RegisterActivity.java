@@ -102,9 +102,9 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    private class BarcodeListener implements View.OnClickListener{
+    private class BarcodeListener implements View.OnClickListener {
         @Override
-        public void onClick(View view){
+        public void onClick(View view) {
             Intent intent = new Intent();
             intent.setClassName(BuildConfig.APPLICATION_ID, BuildConfig.APPLICATION_ID + ".activities.BarcodeScannerActivity");
             startActivityForResult(intent, SCAN_BARCODE);
@@ -121,12 +121,12 @@ public class RegisterActivity extends AppCompatActivity {
                 txtTagType.setText(TYPE_RFID);
             }
         } else if (requestCode == SCAN_BARCODE /*|| requestCode == SCAN_QR*/) {
-            if(resultCode == RESULT_OK){
+            if (resultCode == RESULT_OK) {
                 txtTagData.setText(data.getDataString());
                 txtTagType.setText(TYPE_BARCODE);
             }
-        } else if (requestCode == SCAN_QR){
-            if(resultCode == RESULT_OK){
+        } else if (requestCode == SCAN_QR) {
+            if (resultCode == RESULT_OK) {
                 txtTagData.setText(data.getDataString());
                 txtTagType.setText(TYPE_QRCODE);
             }
@@ -136,14 +136,24 @@ public class RegisterActivity extends AppCompatActivity {
     private class SubmitClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
+            // TODO validate
             Asset asset = new Asset();
-            asset.setCompanyId(CacheManager.retrieveCompanyId(RegisterActivity.this));
-            asset.setOwnerName(Integer.parseInt(txtOwner.getText().toString()));
+            int companyId = CacheManager.retrieveCompanyId(RegisterActivity.this);
+            // FIXME: we are assuming that there is a company with id = 1
+            asset.setCompanyId(companyId == 0 ? 1 : companyId);
+            // FIXME ignore owner for now
+            //asset.setOwnerName(Integer.parseInt(txtOwner.getText().toString()));
             asset.setName(txtName.getText().toString());
             asset.setDescription(txtDescription.getText().toString());
 
             // set asset tag information
-            asset.setTag(txtTagData.getText().toString());
+            String tagData = txtTagData.getText().toString();
+            if (tagData != null) {
+                asset.setTag(tagData);
+            } else {
+                txtTagData.setError("Please scan a tag.");
+                return;
+            }
             String tagType = txtTagType.getText().toString();
             if (TYPE_RFID.equals(tagType)) {
                 asset.setTagType(1);
@@ -179,10 +189,10 @@ public class RegisterActivity extends AppCompatActivity {
                             Log.d(RegisterActivity.class.toString(), restResult.getMessage());
                             setFieldsEnabled(true);
                         }
-                    } else if(response.code() == 401) {
+                    } else if (response.code() == 401) {
                         Toast.makeText(RegisterActivity.this, "Unauthorized.", Toast.LENGTH_LONG).show();
                     } else {
-                        Toast.makeText(RegisterActivity.this, "Error connecting to server, please try again", Toast.LENGTH_LONG).show();
+                        Toast.makeText(RegisterActivity.this, "Error connecting to server, please try again. Error: " + response.code(), Toast.LENGTH_LONG).show();
                         setFieldsEnabled(true);
                     }
 
