@@ -22,4 +22,12 @@ public class RestResult {
     public void setMessage(String message) {
         this.message = message;
     }
+
+    @Override
+    public String toString() {
+        return "RestResult{" +
+                "result='" + result + '\'' +
+                ", message='" + message + '\'' +
+                '}';
+    }
 }

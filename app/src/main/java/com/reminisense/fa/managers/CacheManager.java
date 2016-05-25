@@ -14,7 +14,7 @@ public class CacheManager {
 
     private static final String KEY_LOGIN_RESULT = "loginResult";
 
-    public static void storeLoginResult (Context context, LoginResult loginResult) {
+    public static void storeLoginResult(Context context, LoginResult loginResult) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(context.getString(R.string.preference_key), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();
@@ -29,11 +29,23 @@ public class CacheManager {
                 context.getString(R.string.preference_key), Context.MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString(KEY_LOGIN_RESULT, null);
-        if ( json != null ) {
+        if (json != null) {
             LoginResult loginResult = gson.fromJson(json, LoginResult.class);
             return loginResult;
         } else {
             return null;
         }
     }
+
+    public static String retrieveAuthToken(Context context) {
+        LoginResult loginResult = retrieveLoginResult(context);
+        return loginResult == null ? null : loginResult.getAuthenticationToken();
+    }
+
+    public static int retrieveCompanyId(Context context) {
+        LoginResult loginResult = retrieveLoginResult(context);
+        return loginResult == null ? null : loginResult.getCompanyId();
+    }
+
+
 }

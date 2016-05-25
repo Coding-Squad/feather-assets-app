@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.view.View;
+import android.widget.Toast;
 
 import com.reminisense.fa.R;
 import com.reminisense.fa.managers.CacheManager;
@@ -33,6 +34,14 @@ public class MenuActivity extends AppCompatActivity {
 
         //GET USER ID
         LoginResult loginResult = CacheManager.retrieveLoginResult(MenuActivity.this);
+        if (loginResult == null) {
+            Toast.makeText(MenuActivity.this, "Login Result Invalid!", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent();
+            intent.setClassName("com.reminisense.fa",
+                    "com.reminisense.fa.activities.LoginActivity");
+            startActivity(intent);
+            finish();
+        }
 
         if (UserRolesUtil.hasRole(loginResult.getRoles(), UserRolesUtil.ROLE_ADMIN)) {
             btnScan.setVisibility(View.VISIBLE);

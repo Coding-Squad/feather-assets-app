@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -80,6 +81,7 @@ public class LoginActivity extends AppCompatActivity {
                     LoginResult loginResult = response.body();
                     CacheManager.storeLoginResult(LoginActivity.this, loginResult);
                     Toast.makeText(LoginActivity.this, "Login successful!", Toast.LENGTH_LONG).show();
+                    Log.d(LoginActivity.class.toString(), "X-Auth-Token: " + loginResult.getAuthenticationToken());
                     setMessage(MESSAGE_WELCOME);
 
                     Intent intent = new Intent();
