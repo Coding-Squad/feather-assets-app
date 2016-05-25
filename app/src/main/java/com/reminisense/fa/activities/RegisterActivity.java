@@ -83,6 +83,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
+
+
     private class RfidListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {

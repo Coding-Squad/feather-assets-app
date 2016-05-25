@@ -72,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void loginByEmail(String email, String password) {
         //LoginInfo loginInfo = new LoginInfo(email, password);
-
+        
         //Call<LoginResult> call = apiService.login(loginInfo);
         //call.enqueue(new Callback<LoginResult>() {
             //@Override
