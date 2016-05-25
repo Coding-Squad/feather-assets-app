@@ -7,13 +7,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RestClient {
 
-    private static final String BASE_URL = "http://feather-assets.herokuapp.com/";
     private FeatherAssetsWebService apiService;
 
     public RestClient() {
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(FeatherAssetsWebService.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

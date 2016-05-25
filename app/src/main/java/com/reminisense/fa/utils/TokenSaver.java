@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 /**
  * Created by USER on 5/24/2016.
  */
+@Deprecated // Use Cache Manager in favor of this class.
 public class TokenSaver {
     private final static String SHARED_PREF_NAME = "com.reminisense.Feather_Assets";
     private final static String TOKEN_KEY = "com.reminisense.TOKEN_KEY";
