@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.reminisense.fa.BuildConfig;
 import com.reminisense.fa.R;
+import com.reminisense.fa.managers.CacheManager;
 import com.reminisense.fa.models.Asset;
 import com.reminisense.fa.models.RestResult;
 import com.reminisense.fa.utils.FeatherAssetsWebService;
@@ -124,9 +125,9 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    private class BarcodeListener implements View.OnClickListener{
+    private class BarcodeListener implements View.OnClickListener {
         @Override
-        public void onClick(View view){
+        public void onClick(View view) {
             Intent intent = new Intent();
             intent.setClassName(BuildConfig.APPLICATION_ID, BuildConfig.APPLICATION_ID + ".activities.BarcodeScannerActivity");
             startActivityForResult(intent, SCAN_BARCODE);
@@ -163,24 +164,29 @@ public class RegisterActivity extends AppCompatActivity {
     private class SubmitClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
+            //TODO validate
             Asset asset = new Asset();
+            int companyId = CacheManager.retrieveCompanyId(RegisterActivity.this);
+            //FIXME: we are assuming that there is a company with id = 1;
+            asset.setCompanyId(companyId == 0 ? 1 : companyId);
+            //FIXME: ignore owner for now
             //asset.setOwnerName(Integer.parseInt(txtOwner.getText().toString()));
             asset.setName(txtName.getText().toString());
             asset.setDescription(txtDescription.getText().toString());
 
             // set asset tag information
-            asset.setTag(txtTagData.getText().toString());
+            //asset.setTag(txtTagData.getText().toString());
+            String tagData = txtTagData.getText().toString();
+            if (tagData != null) {
+                asset.setTag(tagData);
+            } else {
+                txtTagData.setError("please scan tag.");
+                return;
+            }
             String tagType = txtTagType.getText().toString();
             if (TYPE_RFID.equals(tagType)) {
                 asset.setTagType(1);
-            } else if (TYPE_BARCODE.equals(tagType)) {
-                asset.setTagType(2);
-            } else if (TYPE_QRCODE.equals(tagType)) {
-                asset.setTagType(3);
-            } else {
-                // unknown tag
             }
-
             asset.setTakeOutInfo(txtTakeOutInfo.getText().toString());
             asset.setTakeOutAllowed(swchTakeOut.isChecked());
 
@@ -190,7 +196,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         private void submitData(Asset asset) {
-            Call<RestResult> call = apiService.registerAsset(asset);
+            Call<RestResult> call = apiService.registerAsset(asset, CacheManager.retrieveAuthToken(RegisterActivity.this));
             call.enqueue(new Callback<RestResult>() {
                 @Override
                 public void onResponse(Call<RestResult> call, Response<RestResult> response) {
@@ -198,15 +204,14 @@ public class RegisterActivity extends AppCompatActivity {
                         RestResult restResult = response.body();
                         if ("OK".equals(restResult.getResult())) {
                             Toast.makeText(RegisterActivity.this, "Submit successful", Toast.LENGTH_LONG).show();
-
-                            Intent intent = new Intent();
-                            intent.setClassName(BuildConfig.APPLICATION_ID, BuildConfig.APPLICATION_ID + ".activities.MenuActivity");
-                            startActivity(intent);
                             finish();
                         } else {
                             Toast.makeText(RegisterActivity.this, restResult.getMessage(), Toast.LENGTH_LONG).show();
+                            Log.d(RegisterActivity.class.toString(), restResult.getMessage());
                             setFieldsEnabled(true);
                         }
+                    } else if (response.code() == 401) {
+                        Toast.makeText(RegisterActivity.this, "Unauthorized.", Toast.LENGTH_LONG).show();
                     } else {
                         Toast.makeText(RegisterActivity.this, "Error connecting to server, please try again", Toast.LENGTH_LONG).show();
                         setFieldsEnabled(true);
