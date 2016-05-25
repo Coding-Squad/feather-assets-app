@@ -52,8 +52,7 @@ public class LoginActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         //initialize via retrofit
-        //apiService = new RestClient().getApiService();
-
+        apiService = new RestClient().getApiService();
         login.setOnClickListener(new LoginClickListener());
     }
 
@@ -80,7 +79,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (response.code() == 200) {
                     LoginResult loginResult = response.body();
                     CacheManager.storeLoginResult(LoginActivity.this, loginResult);
-                    Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, "Login successful!", Toast.LENGTH_LONG).show();
                     setMessage(MESSAGE_WELCOME);
 
                     Intent intent = new Intent();
