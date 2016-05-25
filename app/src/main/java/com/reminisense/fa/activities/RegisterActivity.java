@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.reminisense.fa.BuildConfig;
 import com.reminisense.fa.R;
+import com.reminisense.fa.managers.CacheManager;
 import com.reminisense.fa.models.Asset;
 import com.reminisense.fa.models.RestResult;
 import com.reminisense.fa.utils.FeatherAssetsWebService;
@@ -136,6 +137,7 @@ public class RegisterActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             Asset asset = new Asset();
+            asset.setCompanyId(CacheManager.retrieveCompanyId(RegisterActivity.this));
             asset.setOwnerName(Integer.parseInt(txtOwner.getText().toString()));
             asset.setName(txtName.getText().toString());
             asset.setDescription(txtDescription.getText().toString());
@@ -162,23 +164,23 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         private void submitData(Asset asset) {
-            Call<RestResult> call = apiService.registerAsset(asset);
+            Call<RestResult> call = apiService.registerAsset(asset, CacheManager.retrieveAuthToken(RegisterActivity.this));
             call.enqueue(new Callback<RestResult>() {
                 @Override
                 public void onResponse(Call<RestResult> call, Response<RestResult> response) {
                     if (response.code() == 200) {
                         RestResult restResult = response.body();
+                        Log.d(RegisterActivity.class.toString(), restResult.toString());
                         if ("OK".equals(restResult.getResult())) {
                             Toast.makeText(RegisterActivity.this, "Submit successful", Toast.LENGTH_LONG).show();
-
-                            Intent intent = new Intent();
-                            intent.setClassName(BuildConfig.APPLICATION_ID, BuildConfig.APPLICATION_ID + ".activities.MenuActivity");
-                            startActivity(intent);
                             finish();
                         } else {
                             Toast.makeText(RegisterActivity.this, restResult.getMessage(), Toast.LENGTH_LONG).show();
+                            Log.d(RegisterActivity.class.toString(), restResult.getMessage());
                             setFieldsEnabled(true);
                         }
+                    } else if(response.code() == 401) {
+                        Toast.makeText(RegisterActivity.this, "Unauthorized.", Toast.LENGTH_LONG).show();
                     } else {
                         Toast.makeText(RegisterActivity.this, "Error connecting to server, please try again", Toast.LENGTH_LONG).show();
                         setFieldsEnabled(true);
@@ -211,9 +213,9 @@ public class RegisterActivity extends AppCompatActivity {
                 txtDescription.setEnabled(false);
                 txtName.setEnabled(false);
                 txtTakeOutInfo.setEnabled(false);
-                btnBarCodeRegister.setEnabled(true);
-                btnQrCodeRegister.setEnabled(true);
-                btnRfidRegister.setEnabled(true);
+                btnBarCodeRegister.setEnabled(false);
+                btnQrCodeRegister.setEnabled(false);
+                btnRfidRegister.setEnabled(false);
             }
         }
 

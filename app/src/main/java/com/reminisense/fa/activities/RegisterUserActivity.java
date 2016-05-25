@@ -44,7 +44,7 @@ public class RegisterUserActivity extends AppCompatActivity {
     private FeatherAssetsWebService apiService;
 
     @Override
-    protected void onCreate (Bundle savedInstance){
+    protected void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
         setContentView(R.layout.activity_registeruser);
         ButterKnife.bind(this);
@@ -56,7 +56,7 @@ public class RegisterUserActivity extends AppCompatActivity {
         btnSbmt.setOnClickListener(new SubmitClickListener());
     }
 
-    private class SubmitClickListener implements View.OnClickListener{
+    private class SubmitClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
             User user = new User();
@@ -72,42 +72,42 @@ public class RegisterUserActivity extends AppCompatActivity {
             setFieldsEnabled(false);
         }
 
-            private void submitData(User user){
-                Call<RestResult> call = apiService.registerUser(user);
-                call.enqueue(new Callback<RestResult>() {
-                    @Override
-                    public void onResponse(Call<RestResult> call, Response<RestResult> response) {
-                        if(response.code() == 200) {
-                            RestResult restResult = response.body();
-                            if ("OK".equals(restResult.getResult())) {
-                                Toast.makeText(RegisterUserActivity.this,"Submit Successful", Toast.LENGTH_LONG).show();
+        private void submitData(User user) {
+            Call<RestResult> call = apiService.registerUser(user);
+            call.enqueue(new Callback<RestResult>() {
+                @Override
+                public void onResponse(Call<RestResult> call, Response<RestResult> response) {
+                    if (response.code() == 200) {
+                        RestResult restResult = response.body();
+                        if ("OK".equals(restResult.getResult())) {
+                            Toast.makeText(RegisterUserActivity.this, "Submit Successful", Toast.LENGTH_LONG).show();
 
-                                Intent intent = new Intent();
-                                intent.setClassName(BuildConfig.APPLICATION_ID, BuildConfig.APPLICATION_ID + ".activities.RegisterActivity");
-                                startActivity(intent);
-                                finish();
-                            } else {
-                                Toast.makeText(RegisterUserActivity.this, restResult.getMessage(), Toast.LENGTH_LONG).show();
-                                setFieldsEnabled(true);
-                            }
+                            Intent intent = new Intent();
+                            intent.setClassName(BuildConfig.APPLICATION_ID, BuildConfig.APPLICATION_ID + ".activities.RegisterActivity");
+                            startActivity(intent);
+                            finish();
                         } else {
-                            Toast.makeText(RegisterUserActivity.this, "Error connecting to server, please try again", Toast.LENGTH_LONG).show();
+                            Toast.makeText(RegisterUserActivity.this, restResult.getMessage(), Toast.LENGTH_LONG).show();
                             setFieldsEnabled(true);
                         }
-                    }
-
-                    @Override
-                    public void onFailure(Call<RestResult> call, Throwable t) {
+                    } else {
                         Toast.makeText(RegisterUserActivity.this, "Error connecting to server, please try again", Toast.LENGTH_LONG).show();
-                        t.printStackTrace();
                         setFieldsEnabled(true);
                     }
-                });
-            }
+                }
+
+                @Override
+                public void onFailure(Call<RestResult> call, Throwable t) {
+                    Toast.makeText(RegisterUserActivity.this, "Error connecting to server, please try again", Toast.LENGTH_LONG).show();
+                    t.printStackTrace();
+                    setFieldsEnabled(true);
+                }
+            });
+        }
 
     }
 
-    public void setFieldsEnabled (boolean enabled){
+    public void setFieldsEnabled(boolean enabled) {
         if (enabled) {
             fnText.setEnabled(true);
             lnText.setEnabled(true);

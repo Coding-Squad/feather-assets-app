@@ -36,4 +36,16 @@ public class CacheManager {
             return null;
         }
     }
+
+    public static String retrieveAuthToken(Context context) {
+        LoginResult loginResult = retrieveLoginResult(context);
+        return loginResult.getAuthenticationToken();
+    }
+
+    public static int retrieveCompanyId(Context context) {
+        LoginResult loginResult = retrieveLoginResult(context);
+        return loginResult.getCompanyId();
+    }
+
+
 }

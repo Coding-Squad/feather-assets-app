@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.reminisense.fa.BuildConfig;
 import com.reminisense.fa.R;
+import com.reminisense.fa.managers.CacheManager;
 import com.reminisense.fa.models.Asset;
 import com.reminisense.fa.models.RestResult;
 import com.reminisense.fa.utils.FeatherAssetsWebService;
@@ -88,7 +89,7 @@ public class ScanActivity extends AppCompatActivity {
 
             final Asset asset = new Asset();
 
-            Call<Asset> call = apiService.verify(code);
+            Call<Asset> call = apiService.verify(code, CacheManager.retrieveAuthToken(ScanActivity.this));
             call.enqueue(new Callback<Asset>() {
                 @Override
                 public void onResponse(Call<Asset> call, Response<Asset> response) {
