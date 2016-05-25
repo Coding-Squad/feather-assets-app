@@ -14,24 +14,25 @@
         android:orientation="vertical">
 
 
-        <Button
-            android:id="@+id/openCamera"
+        <TextView
+            android:id="@+id/ownerTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/holo_orange_dark"
-            android:textColor="@color/white"
-            android:paddingLeft="10dip"
-            android:paddingRight="15dip"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="center_horizontal"
-            android:text="Take Picture" />
-        
-        <ImageView
-            android:layout_width="fill_parent"
-            android:layout_height="300.0dp"
-            android:id="@+id/image"
-            android:adjustViewBounds="true" />
+            android:layout_marginLeft="10dp"
+            android:textSize="16dp"
+            android:textColor="@color/black"
+            android:paddingTop="10dp"
+            android:text="Owner"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
+        <EditText
+            android:id="@+id/txtOwner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:ems="10"
+            android:inputType="number" />
 
         <TextView
             android:id="@+id/nameTitle"
@@ -61,7 +62,7 @@
             android:layout_marginLeft="10dp"
             android:textSize="16dp"
             android:paddingTop="10dp"
-            android:text="Owner Name"
+            android:text="Description"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <EditText

@@ -17,27 +17,13 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="QR CODE"
+                android:text="QR/BARCODE"
                 android:background="@android:color/holo_orange_dark"
                 android:textColor="@color/white"
                 android:layout_marginRight="20dp"
-                android:layout_marginLeft="10dp"
                 android:paddingLeft="30dip"
                 android:paddingRight="26dip"
                 android:id="@+id/btnQr"
-                android:layout_gravity="center_horizontal" />
-
-            <Button
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="BAR CODE"
-                android:background="@android:color/holo_orange_dark"
-                android:textColor="@color/white"
-                android:layout_marginRight="20dp"
-                android:paddingLeft="30dip"
-                android:paddingRight="26dip"
-                android:id="@+id/btnBar"
                 android:layout_gravity="center_horizontal" />
 
             <ImageView
@@ -54,7 +40,6 @@
                 android:textColor="@color/white"
                 android:paddingLeft="30dip"
                 android:paddingRight="26dip"
-                android:layout_marginRight="10dp"
                 android:id="@+id/btnRfid"
                 android:layout_gravity="center_horizontal" />
 
