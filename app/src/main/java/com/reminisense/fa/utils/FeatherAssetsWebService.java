@@ -19,6 +19,8 @@ import retrofit2.http.Path;
  */
 public interface FeatherAssetsWebService {
 
+    String BASE_URL = "http://feather-assets.herokuapp.com/";
+
     @POST("/api/register/asset")
     Call<RestResult> registerAsset (@Body Asset asset);
 

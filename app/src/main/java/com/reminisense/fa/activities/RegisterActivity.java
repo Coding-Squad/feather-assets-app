@@ -1,12 +1,20 @@
 package com.reminisense.fa.activities;
 
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.v4.os.EnvironmentCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +25,8 @@ import com.reminisense.fa.models.Asset;
 import com.reminisense.fa.models.RestResult;
 import com.reminisense.fa.utils.FeatherAssetsWebService;
 import com.reminisense.fa.utils.RestClient;
+
+import java.io.File;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -30,8 +40,8 @@ import retrofit2.Response;
 public class RegisterActivity extends AppCompatActivity {
 
     private static final String Submit = "Submitting... ";
-    @Bind(R.id.txtOwner)
-    EditText txtOwner;
+    //@Bind(R.id.txtOwner)
+    //EditText txtOwner;
     @Bind(R.id.txtName)
     EditText txtName;
     @Bind(R.id.txtDescription)
@@ -46,17 +56,21 @@ public class RegisterActivity extends AppCompatActivity {
     AppCompatButton btnRfidRegister;
     @Bind(R.id.btnBarCodeRegister)
     AppCompatButton btnBarCodeRegister;
+    @Bind(R.id.openCamera) AppCompatButton openCamera;
     @Bind(R.id.swchTakeOut)
     Switch swchTakeOut;
     @Bind(R.id.txtTagData)
     TextView txtTagData;
     @Bind(R.id.txtTagType)
     TextView txtTagType;
+    @Bind(R.id.image)
+    ImageView image;
 
     // Request Codes
     private static final int SCAN_RFID = 1;
     private static final int SCAN_BARCODE = 2;
     private static final int SCAN_QR = 3;
+    private static final int TAKE_PIC = 4;
 
     // Tag type strings
     private static final String TYPE_RFID = "RFID/NFC";
@@ -80,10 +94,17 @@ public class RegisterActivity extends AppCompatActivity {
         btnQrCodeRegister.setOnClickListener(new QrListener());
         btnBarCodeRegister.setOnClickListener(new BarcodeListener());
         btnSubmit.setOnClickListener(new SubmitClickListener());
+        openCamera.setOnClickListener(new openCameraListener());
 
     }
 
-
+    private class openCameraListener implements View.OnClickListener {
+        @Override
+        public void onClick (View v) {
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(intent, TAKE_PIC);
+        }
+    }
 
     private class RfidListener implements View.OnClickListener {
         @Override
@@ -131,6 +152,11 @@ public class RegisterActivity extends AppCompatActivity {
                 txtTagData.setText(data.getDataString());
                 txtTagType.setText(TYPE_QRCODE);
             }
+        } else if (requestCode == TAKE_PIC) {
+            if (resultCode == RESULT_OK) {
+                Bitmap photo = (Bitmap) data.getExtras().get("data");
+                image.setImageBitmap(photo);
+            }
         }
     }
 
@@ -138,7 +164,7 @@ public class RegisterActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             Asset asset = new Asset();
-            asset.setOwnerName(Integer.parseInt(txtOwner.getText().toString()));
+            //asset.setOwnerName(Integer.parseInt(txtOwner.getText().toString()));
             asset.setName(txtName.getText().toString());
             asset.setDescription(txtDescription.getText().toString());
 
@@ -199,7 +225,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         private void setFieldsEnabled(boolean enabled) {
             if (enabled) {
-                txtOwner.setEnabled(true);
+                //txtOwner.setEnabled(true);
                 btnSubmit.setEnabled(true);
                 txtDescription.setEnabled(true);
                 txtName.setEnabled(true);
@@ -208,7 +234,7 @@ public class RegisterActivity extends AppCompatActivity {
                 btnQrCodeRegister.setEnabled(true);
                 btnRfidRegister.setEnabled(true);
             } else {
-                txtOwner.setEnabled(false);
+                //txtOwner.setEnabled(false);
                 btnSubmit.setEnabled(false);
                 txtDescription.setEnabled(false);
                 txtName.setEnabled(false);

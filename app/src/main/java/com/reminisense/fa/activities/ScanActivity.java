@@ -118,13 +118,19 @@ public class ScanActivity extends AppCompatActivity {
             public void onResponse(Call<VerifyResult> call, Response<VerifyResult> response) {
                 if(response.code() == 200) {
                     VerifyResult verifyResult = response.body();
-                    if(verifyResult.getAsset().getTag() == code) {
-                        assetPictureData.setText(verifyResult.getAsset().getImageUrls());
-                        assetNameData.setText(verifyResult.getAsset().getName());
-                        descriptionData.setText(verifyResult.getAsset().getDescription());
-                        ownerNameData.setText(verifyResult.getAsset().getOwnerName());
-                        //takeOutAvailData.setText(verifyResult.getAsset().isTakeOutAllowed());
-                        takeOutNoteData.setText(verifyResult.getAsset().getTakeOutInfo());
+                    if("OK".equals(verifyResult.getResult())) {
+                        assetPictureData.setText(verifyResult.getImageUrls());
+                        assetNameData.setText(verifyResult.getName());
+                        descriptionData.setText(verifyResult.getDescription());
+                        //ownerNameData.setText(verifyResult.getAsset().getOwnerName());
+                        if(verifyResult.isTakeOutAllowed() == true ) {
+                            takeOutAvailData.setText("YES");
+                        } else {
+                            takeOutAvailData.setText("NO");
+                        }
+                        takeOutNoteData.setText(verifyResult.getTakeOutInfo());
+                    } else {
+                        Toast.makeText(ScanActivity.this, verifyResult.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 } else {
                     Toast.makeText(ScanActivity.this, "Error connecting to server, please try again... ", Toast.LENGTH_LONG).show();

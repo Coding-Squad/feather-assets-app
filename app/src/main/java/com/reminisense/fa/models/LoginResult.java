@@ -4,33 +4,68 @@ package com.reminisense.fa.models;
  * Created by USER on 5/19/2016.
  */
 public class LoginResult {
+    private int companyId;
+    private String companyName;
+    private int userId;
+    private String firstName;
+    private String lastName;
+    private String authenticationToken;
+    private String roles;
 
-    private String result;
-    private String message;
-    private User user;
-
-    public String getResult() {
-        return result;
+    public int getCompanyId() {
+        return companyId;
     }
 
-    public void setResult(String result) {
-        this.result = result;
+    public void setCompanyId(int companyId) {
+        this.companyId = companyId;
     }
 
-    public String getMessage() {
-        return message;
+    public String getCompanyName() {
+        return companyName;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
-    public User getUser() {
-        return user;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getAuthenticationToken() {
+        return authenticationToken;
+    }
+
+    public void setAuthenticationToken(String authenticationToken) {
+        this.authenticationToken = authenticationToken;
+    }
+
+    public String getRoles() {
+        return roles;
+    }
+
+    public void setRoles(String roles) {
+        this.roles = roles;
     }
 }
 
