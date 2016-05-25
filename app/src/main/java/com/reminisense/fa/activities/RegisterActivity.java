@@ -72,8 +72,6 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_registerassets);
         ButterKnife.bind(this);
 
-        setTitle("Register Asset");
-
         //initialize api services
         apiService = new RestClient().getApiService();
 
