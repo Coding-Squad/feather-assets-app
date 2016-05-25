@@ -7,7 +7,7 @@ public class User {
 
     private int userId;
     private int companyId;
-    private int authorities;
+    private String authorities;
     private String firstName;
     private String lastName;
     private String position;
@@ -30,12 +30,12 @@ public class User {
         this.companyId = companyId;
     }
 
-    public int getAuthorities() {
+    public String getAuthorities() {
         return authorities;
     }
 
-    public void setAuthorities(int userLevel) {
-        this.authorities = userLevel;
+    public void setAuthorities(String authorities) {
+        this.authorities = authorities;
     }
 
     public String getFirstName() {

@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Feather Assets</string>
     <string name="barcode">Barcode/QR Scanner</string>
+    <string name="openCamera">Open Camera</string>
     <string name="preference_key">Preferences</string>
     <string name="register_asset">Register Asset</string>
 </resources>
