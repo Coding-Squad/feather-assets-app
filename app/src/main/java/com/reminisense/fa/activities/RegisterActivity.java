@@ -28,6 +28,9 @@ import com.reminisense.fa.utils.FeatherAssetsWebService;
 import com.reminisense.fa.utils.RestClient;
 
 import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -103,6 +106,9 @@ public class RegisterActivity extends AppCompatActivity {
         @Override
         public void onClick (View v) {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            File file = new File(Environment.getExternalStorageDirectory(), "my-photo.jpg");
+            Uri photoPath = Uri.fromFile(file);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, photoPath);
             startActivityForResult(intent, TAKE_PIC);
         }
     }
