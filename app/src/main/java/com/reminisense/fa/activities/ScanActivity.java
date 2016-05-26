@@ -37,8 +37,8 @@ public class ScanActivity extends AppCompatActivity {
     AppCompatButton btnBarcode;
     @Bind(R.id.btnRfid)
     AppCompatButton btnRfid;
-    @Bind(R.id.assetPictureData)
-    TextView assetPictureData;
+    //removed textView field from UI
+    //@Bind(R.id.assetPictureData) TextView assetPictureData;
     @Bind(R.id.assetNameData)
     TextView assetNameData;
     @Bind(R.id.ownerNameData)

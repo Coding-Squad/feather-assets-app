@@ -105,10 +105,10 @@ public class RegisterActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+            /*File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
             File file = new File(dir, "Demo.jpeg");
             intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
-            startActivityForResult(intent, TAKE_PIC);
+            */startActivityForResult(intent, TAKE_PIC);
         }
     }
 
