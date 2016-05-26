@@ -5,6 +5,8 @@ import com.reminisense.fa.models.LoginInfo;
 import com.reminisense.fa.models.LoginResult;
 import com.reminisense.fa.models.RestResult;
 import com.reminisense.fa.models.User;
+import com.reminisense.fa.models.VerifyRequest;
+import com.reminisense.fa.models.VerifyResult;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -25,7 +27,7 @@ public interface FeatherAssetsWebService {
     Call<RestResult> registerAsset(@Body Asset asset, @Header(X_AUTH_TOKEN) String xAuthToken);
 
     @GET("/api/verify")
-    Call<Asset> verify(@Path("tag") String tag, @Header(X_AUTH_TOKEN) String xAuthToken);
+    Call<VerifyResult> verify(@Body VerifyRequest verifyRequest, @Header(X_AUTH_TOKEN) String xAuthToken);
 
     @POST("/login")
     Call<LoginResult> login(@Body LoginInfo loginInfo);
