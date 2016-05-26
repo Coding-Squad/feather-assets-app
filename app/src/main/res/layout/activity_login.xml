@@ -39,8 +39,7 @@
                 android:paddingBottom="4dp"
                 android:textSize="16sp"
                 android:imeOptions="actionNext"
-                android:singleLine="true"
-                android:text="admin" />
+                android:singleLine="true" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -65,8 +64,7 @@
                 android:paddingBottom="4dp"
                 android:textSize="16sp"
                 android:imeOptions="actionDone"
-                android:singleLine="true"
-                android:text="aws123" />
+                android:singleLine="true" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.v7.widget.AppCompatButton

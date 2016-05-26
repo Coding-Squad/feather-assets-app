@@ -67,5 +67,18 @@ public class LoginResult {
     public void setRoles(String roles) {
         this.roles = roles;
     }
+
+    @Override
+    public String toString() {
+        return "LoginResult{" +
+                "companyId=" + companyId +
+                ", name='" + name + '\'' +
+                ", userId=" + userId +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", authenticationToken='" + authenticationToken + '\'' +
+                ", roles='" + roles + '\'' +
+                '}';
+    }
 }
 

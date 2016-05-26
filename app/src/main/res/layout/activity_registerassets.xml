@@ -144,7 +144,7 @@
             android:layout_gravity="center_horizontal"
             android:text="NONE"
             android:paddingBottom="25dp"
-            android:visibility="invisible" />
+            android:visibility="visible" />
 
         <TextView
             android:layout_width="wrap_content"
