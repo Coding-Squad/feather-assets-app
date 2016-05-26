@@ -17,7 +17,7 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="QR/BARCODE"
+                android:text="QR"
                 android:background="@android:color/holo_orange_dark"
                 android:textColor="@color/white"
                 android:layout_marginRight="20dp"
@@ -25,6 +25,17 @@
                 android:paddingRight="26dip"
                 android:id="@+id/btnQr"
                 android:layout_gravity="center_horizontal" />
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BARCODE"
+                android:background="@android:color/holo_orange_dark"
+                android:textColor="@color/white"
+                android:layout_marginRight="20dp"
+                android:paddingLeft="30dip"
+                android:paddingRight="26dip"
+                android:id="@+id/btnBarcode" />
 
             <ImageView
                 android:layout_width="wrap_content"
