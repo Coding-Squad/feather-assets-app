@@ -1,11 +1,15 @@
 package com.reminisense.fa.activities;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +20,8 @@ import com.reminisense.fa.models.VerifyRequest;
 import com.reminisense.fa.models.VerifyResult;
 import com.reminisense.fa.utils.FeatherAssetsWebService;
 import com.reminisense.fa.utils.RestClient;
+
+import java.io.File;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -37,8 +43,8 @@ public class ScanActivity extends AppCompatActivity {
     AppCompatButton btnBarcode;
     @Bind(R.id.btnRfid)
     AppCompatButton btnRfid;
-    //removed textView field from UI
-    //@Bind(R.id.assetPictureData) TextView assetPictureData;
+    @Bind(R.id.image)
+    ImageView image;
     @Bind(R.id.assetNameData)
     TextView assetNameData;
     @Bind(R.id.ownerNameData)
@@ -98,6 +104,25 @@ public class ScanActivity extends AppCompatActivity {
         }
     }
 
+
+    private Bitmap getBitmap(String strPath) {
+        File mediaFile = new File(strPath);
+        Uri captureImageUri = Uri.fromFile(mediaFile);
+
+        image.setVisibility(View.VISIBLE);
+
+        // bimatp factory
+        BitmapFactory.Options options = new BitmapFactory.Options();
+
+        // downsizing image as it throws OutOfMemory Exception for larger
+        // images
+        options.inSampleSize = 8;
+
+        final Bitmap bitmap = BitmapFactory.decodeFile(captureImageUri.getPath(),
+                options);
+        return bitmap;
+    }
+
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             VerifyRequest request = new VerifyRequest();
@@ -126,6 +151,7 @@ public class ScanActivity extends AppCompatActivity {
                         /*
                         get data from database and display
                          */
+                            image.setImageBitmap(getBitmap(verifyResult.getImageUrls()));
                             assetNameData.setText(verifyResult.getName());
                             ownerNameData.setText(verifyResult.getDescription());
                             descriptionData.setText(verifyResult.getDescription());
