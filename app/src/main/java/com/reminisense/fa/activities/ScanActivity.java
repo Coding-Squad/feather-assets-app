@@ -1,11 +1,14 @@
 package com.reminisense.fa.activities;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +23,8 @@ import com.reminisense.fa.utils.FeatherAssetsWebService;
 import com.reminisense.fa.utils.RestClient;
 
 import org.w3c.dom.Text;
+
+import java.io.File;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -39,9 +44,10 @@ public class ScanActivity extends AppCompatActivity {
     @Bind(R.id.btnQr) AppCompatButton btnQr;
     @Bind(R.id.btnRfid) AppCompatButton btnRfid;
     @Bind(R.id.btnBar) AppCompatButton btnBar;
-    @Bind(R.id.assetPictureData) TextView assetPictureData;
+    @Bind(R.id.assetPicture) ImageView assetPicture;
     @Bind(R.id.assetNameData) TextView assetNameData;
-    @Bind(R.id.ownerNameData) TextView ownerNameData;
+    //ignore user for now
+    //@Bind(R.id.ownerNameData) TextView ownerNameData;
     @Bind(R.id.descriptionData) TextView descriptionData;
     @Bind(R.id.takeOutAvailData) TextView takeOutAvailData;
     @Bind(R.id.takeOutNoteData) TextView takeOutNoteData;
@@ -126,7 +132,13 @@ public class ScanActivity extends AppCompatActivity {
                         VerifyResult verifyResult = response.body();
                         Log.d(ScanActivity.class.toString(), verifyResult.toString());
                         if ("OK".equals(verifyResult.getResult())) {
-                            //assetPictureData
+                            //tentative image thing
+                            File file = new File("/storage/emulated/0/DCIM/" + verifyResult.getImageUrls());
+
+                            if (file.exists()) {
+                                Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+                                assetPicture.setImageBitmap(bitmap);
+                            }
                             assetNameData.setText(verifyResult.getName());
                             //ownerNameData.setText(verifyResult.get);
                             descriptionData.setText(verifyResult.getDescription());

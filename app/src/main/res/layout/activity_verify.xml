@@ -66,7 +66,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/imageView" />
+            android:id="@+id/assetPicture" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -82,20 +82,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/ownerNameData"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="15dp"
-            android:text="OWNER"
-            android:paddingBottom="25dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/descriptionData"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="15dp"
-            android:text="DESCRIPTION"
+            android:text="OWNER"
             android:paddingBottom="25dp"/>
 
         <TextView

@@ -1,8 +1,12 @@
 package com.reminisense.fa.activities;
 
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
@@ -22,11 +26,16 @@ import com.reminisense.fa.models.RestResult;
 import com.reminisense.fa.utils.FeatherAssetsWebService;
 import com.reminisense.fa.utils.RestClient;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.Path;
 
 /**
  * Activity to handle registration of assets.
@@ -96,6 +105,9 @@ public class RegisterActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+            File file = new File(dir, "Demo.jpeg");
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
             startActivityForResult(intent, TAKE_PIC);
         }
     }
@@ -128,7 +140,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult (int requestCode, int resultCode, Intent data) {
         // Check which request we're responding to
         if (requestCode == SCAN_RFID) {
             // Make sure the request was successful
@@ -193,6 +205,8 @@ public class RegisterActivity extends AppCompatActivity {
             submitData(asset);
             setFieldsEnabled(false);
         }
+
+
 
         private void submitData(Asset asset) {
             Call<RestResult> call = apiService.registerAsset(asset, CacheManager.retrieveAuthToken(RegisterActivity.this));
