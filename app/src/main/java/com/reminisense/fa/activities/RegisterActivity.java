@@ -1,9 +1,8 @@
 package com.reminisense.fa.activities;
 
-import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -27,15 +26,15 @@ import com.reminisense.fa.utils.FeatherAssetsWebService;
 import com.reminisense.fa.utils.RestClient;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Path;
 
 /**
  * Activity to handle registration of assets.
@@ -70,6 +69,11 @@ public class RegisterActivity extends AppCompatActivity {
     TextView txtTagType;
     @Bind(R.id.image)
     ImageView image;
+    Uri captureImageUri;
+
+
+    // directory name to store captured images and videos
+    private static final String IMAGE_DIRECTORY_NAME = "Feather Assets";
 
     // Request Codes
     private static final int SCAN_RFID = 1;
@@ -105,10 +109,12 @@ public class RegisterActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            /*File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
-            File file = new File(dir, "Demo.jpeg");
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
-            */startActivityForResult(intent, TAKE_PIC);
+            captureImageUri = getOutputMediaFileUri();
+
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, captureImageUri);
+
+            // start the image capture Intent
+            startActivityForResult(intent, TAKE_PIC);
         }
     }
 
@@ -140,7 +146,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult (int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request we're responding to
         if (requestCode == SCAN_RFID) {
             // Make sure the request was successful
@@ -160,9 +166,31 @@ public class RegisterActivity extends AppCompatActivity {
             }
         } else if (requestCode == TAKE_PIC) {
             if (resultCode == RESULT_OK) {
-                Bitmap photo = (Bitmap) data.getExtras().get("data");
-                image.setImageBitmap(photo);
+                previewCapturedImage();
             }
+        }
+    }
+
+    /*
+     * Display image from a path to ImageView
+     */
+    private void previewCapturedImage() {
+        try {
+            image.setVisibility(View.VISIBLE);
+
+            // bimatp factory
+            BitmapFactory.Options options = new BitmapFactory.Options();
+
+            // downsizing image as it throws OutOfMemory Exception for larger
+            // images
+            options.inSampleSize = 8;
+
+            final Bitmap bitmap = BitmapFactory.decodeFile(captureImageUri.getPath(),
+                    options);
+
+            image.setImageBitmap(bitmap);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
         }
     }
 
@@ -178,6 +206,7 @@ public class RegisterActivity extends AppCompatActivity {
             //asset.setOwnerName(Integer.parseInt(txtOwner.getText().toString()));
             asset.setName(txtName.getText().toString());
             asset.setDescription(txtDescription.getText().toString());
+            asset.setImageUrls(captureImageUri.getPath());
 
             // set asset tag information
             String tagData = txtTagData.getText().toString();
@@ -205,7 +234,6 @@ public class RegisterActivity extends AppCompatActivity {
             submitData(asset);
             setFieldsEnabled(false);
         }
-
 
 
         private void submitData(Asset asset) {
@@ -264,5 +292,33 @@ public class RegisterActivity extends AppCompatActivity {
             }
         }
 
+    }
+
+    /**
+     * Creating file uri to store image
+     */
+    public Uri getOutputMediaFileUri() {
+
+        // External sdcard location
+        File mediaStorageDir = new File(
+                Environment
+                        .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+                IMAGE_DIRECTORY_NAME);
+
+        // Create the storage directory if it does not exist
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                Log.d(IMAGE_DIRECTORY_NAME, "Oops! Failed create "
+                        + IMAGE_DIRECTORY_NAME + " directory");
+                return null;
+            }
+        }
+
+        // Create a media file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
+                Locale.getDefault()).format(new Date());
+        File mediaFile = new File(mediaStorageDir.getPath() + File.separator
+                + "IMG_" + timeStamp + ".jpg");
+        return Uri.fromFile(mediaFile);
     }
 }
