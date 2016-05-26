@@ -40,7 +40,7 @@
             android:label="@string/register_asset"
             android:parentActivityName=".activities.MenuActivity"/>
         <activity android:name=".activities.ScanActivity"
-            android:label="@string/app_name"
+            android:label="@string/verify_tag"
             android:parentActivityName=".activities.MenuActivity" />
         <activity android:name=".activities.NfcScannerActivity"
             android:parentActivityName=".activities.MenuActivity">
