@@ -1,16 +1,11 @@
 package com.reminisense.fa.activities;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.v4.os.EnvironmentCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -27,11 +22,6 @@ import com.reminisense.fa.models.RestResult;
 import com.reminisense.fa.utils.FeatherAssetsWebService;
 import com.reminisense.fa.utils.RestClient;
 
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -44,8 +34,9 @@ import retrofit2.Response;
 public class RegisterActivity extends AppCompatActivity {
 
     private static final String Submit = "Submitting... ";
-    //@Bind(R.id.txtOwner)
-    //EditText txtOwner;
+    // FIXME
+//    @Bind(R.id.txtOwner)
+//    EditText txtOwner;
     @Bind(R.id.txtName)
     EditText txtName;
     @Bind(R.id.txtDescription)
@@ -56,11 +47,12 @@ public class RegisterActivity extends AppCompatActivity {
     AppCompatButton btnSubmit;
     @Bind(R.id.btnQrCodeRegister)
     AppCompatButton btnQrCodeRegister;
+    @Bind(R.id.openCamera)
+    AppCompatButton openCamera;
     @Bind(R.id.btnRfidRegister)
     AppCompatButton btnRfidRegister;
     @Bind(R.id.btnBarCodeRegister)
     AppCompatButton btnBarCodeRegister;
-    @Bind(R.id.openCamera) AppCompatButton openCamera;
     @Bind(R.id.swchTakeOut)
     Switch swchTakeOut;
     @Bind(R.id.txtTagData)
@@ -89,8 +81,6 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_registerassets);
         ButterKnife.bind(this);
 
-        setTitle("Register Asset");
-
         //initialize api services
         apiService = new RestClient().getApiService();
 
@@ -98,17 +88,14 @@ public class RegisterActivity extends AppCompatActivity {
         btnQrCodeRegister.setOnClickListener(new QrListener());
         btnBarCodeRegister.setOnClickListener(new BarcodeListener());
         btnSubmit.setOnClickListener(new SubmitClickListener());
-        openCamera.setOnClickListener(new openCameraListener());
+        openCamera.setOnClickListener(new OpenCameraListener());
 
     }
 
-    private class openCameraListener implements View.OnClickListener {
+    private class OpenCameraListener implements View.OnClickListener {
         @Override
-        public void onClick (View v) {
+        public void onClick(View v) {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            File file = new File(Environment.getExternalStorageDirectory(), "my-photo.jpg");
-            Uri photoPath = Uri.fromFile(file);
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, photoPath);
             startActivityForResult(intent, TAKE_PIC);
         }
     }
@@ -150,12 +137,12 @@ public class RegisterActivity extends AppCompatActivity {
                 txtTagType.setText(TYPE_RFID);
             }
         } else if (requestCode == SCAN_BARCODE /*|| requestCode == SCAN_QR*/) {
-            if(resultCode == RESULT_OK){
+            if (resultCode == RESULT_OK) {
                 txtTagData.setText(data.getDataString());
                 txtTagType.setText(TYPE_BARCODE);
             }
-        } else if (requestCode == SCAN_QR){
-            if(resultCode == RESULT_OK){
+        } else if (requestCode == SCAN_QR) {
+            if (resultCode == RESULT_OK) {
                 txtTagData.setText(data.getDataString());
                 txtTagType.setText(TYPE_QRCODE);
             }
@@ -170,29 +157,35 @@ public class RegisterActivity extends AppCompatActivity {
     private class SubmitClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            //TODO validate
+            // TODO validate
             Asset asset = new Asset();
             int companyId = CacheManager.retrieveCompanyId(RegisterActivity.this);
-            //FIXME: we are assuming that there is a company with id = 1;
+            // FIXME: we are assuming that there is a company with id = 1
             asset.setCompanyId(companyId == 0 ? 1 : companyId);
-            //FIXME: ignore owner for now
+            // FIXME ignore owner for now
             //asset.setOwnerName(Integer.parseInt(txtOwner.getText().toString()));
             asset.setName(txtName.getText().toString());
             asset.setDescription(txtDescription.getText().toString());
 
             // set asset tag information
-            //asset.setTag(txtTagData.getText().toString());
             String tagData = txtTagData.getText().toString();
             if (tagData != null) {
                 asset.setTag(tagData);
             } else {
-                txtTagData.setError("please scan tag.");
+                txtTagData.setError("Please scan a tag.");
                 return;
             }
             String tagType = txtTagType.getText().toString();
             if (TYPE_RFID.equals(tagType)) {
                 asset.setTagType(1);
+            } else if (TYPE_BARCODE.equals(tagType)) {
+                asset.setTagType(2);
+            } else if (TYPE_QRCODE.equals(tagType)) {
+                asset.setTagType(3);
+            } else {
+                // unknown tag
             }
+
             asset.setTakeOutInfo(txtTakeOutInfo.getText().toString());
             asset.setTakeOutAllowed(swchTakeOut.isChecked());
 
@@ -208,6 +201,7 @@ public class RegisterActivity extends AppCompatActivity {
                 public void onResponse(Call<RestResult> call, Response<RestResult> response) {
                     if (response.code() == 200) {
                         RestResult restResult = response.body();
+                        Log.d(RegisterActivity.class.toString(), restResult.toString());
                         if ("OK".equals(restResult.getResult())) {
                             Toast.makeText(RegisterActivity.this, "Submit successful", Toast.LENGTH_LONG).show();
                             finish();
@@ -219,7 +213,7 @@ public class RegisterActivity extends AppCompatActivity {
                     } else if (response.code() == 401) {
                         Toast.makeText(RegisterActivity.this, "Unauthorized.", Toast.LENGTH_LONG).show();
                     } else {
-                        Toast.makeText(RegisterActivity.this, "Error connecting to server, please try again", Toast.LENGTH_LONG).show();
+                        Toast.makeText(RegisterActivity.this, "Error connecting to server, please try again. Error: " + response.code(), Toast.LENGTH_LONG).show();
                         setFieldsEnabled(true);
                     }
 
@@ -250,9 +244,9 @@ public class RegisterActivity extends AppCompatActivity {
                 txtDescription.setEnabled(false);
                 txtName.setEnabled(false);
                 txtTakeOutInfo.setEnabled(false);
-                btnBarCodeRegister.setEnabled(true);
-                btnQrCodeRegister.setEnabled(true);
-                btnRfidRegister.setEnabled(true);
+                btnBarCodeRegister.setEnabled(false);
+                btnQrCodeRegister.setEnabled(false);
+                btnRfidRegister.setEnabled(false);
             }
         }
 

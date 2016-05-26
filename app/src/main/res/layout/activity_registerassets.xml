@@ -25,7 +25,7 @@
             android:layout_marginTop="10dp"
             android:layout_gravity="center_horizontal"
             android:text="Take Picture" />
-        
+
         <ImageView
             android:layout_width="fill_parent"
             android:layout_height="300.0dp"
@@ -124,16 +124,16 @@
             android:orientation="horizontal"
             android:layout_gravity="center">
 
-        <Button
-            android:id="@+id/btnQrCodeRegister"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/holo_orange_dark"
-            android:textColor="@color/white"
-            android:paddingLeft="10dip"
-            android:paddingRight="15dip"
-            android:layout_marginLeft="15dp"
-            android:text="QR Code" />
+            <Button
+                android:id="@+id/btnQrCodeRegister"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/holo_orange_dark"
+                android:textColor="@color/white"
+                android:paddingLeft="10dip"
+                android:paddingRight="15dip"
+                android:layout_marginLeft="15dp"
+                android:text="QR Code" />
 
             <Button
                 android:id="@+id/btnBarCodeRegister"
