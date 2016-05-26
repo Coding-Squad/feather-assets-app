@@ -46,10 +46,12 @@ public class ScanActivity extends AppCompatActivity {
     @Bind(R.id.takeOutAvailData) TextView takeOutAvailData;
     @Bind(R.id.takeOutNoteData) TextView takeOutNoteData;
 
+    //tag types
     private static final int SCAN_RFID = 1;
     private static final int SCAN_BARCODE = 2;
     private static final int SCAN_QR = 3;
 
+    //take out texts
     private static final String YES = "ALLOWED TO TAKE OUT";
     private static final String NO = "NOT ALLOWED TO TAKE OUT";
 
