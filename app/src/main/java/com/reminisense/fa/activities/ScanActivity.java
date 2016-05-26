@@ -156,7 +156,6 @@ public class ScanActivity extends AppCompatActivity {
                             ownerNameData.setText(verifyResult.getDescription());
                             descriptionData.setText(verifyResult.getDescription());
                             // TODO takeOutAllowed
-                            // TODO image
                             takeOutNoteData.setText(verifyResult.getTakeOutInfo());
                         } else {
                             Toast.makeText(ScanActivity.this, "Asset not found! Please register.", Toast.LENGTH_LONG).show();
