@@ -17,28 +17,31 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="QR CODE"
+                android:text="QR"
                 android:background="@android:color/holo_orange_dark"
                 android:textColor="@color/white"
                 android:layout_marginRight="20dp"
-                android:layout_marginLeft="10dp"
                 android:paddingLeft="30dip"
                 android:paddingRight="26dip"
                 android:id="@+id/btnQr"
                 android:layout_gravity="center_horizontal" />
-
             <Button
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="BAR CODE"
+                android:text="BARCODE"
                 android:background="@android:color/holo_orange_dark"
                 android:textColor="@color/white"
+                android:layout_marginRight="20dp"
                 android:paddingLeft="30dip"
                 android:paddingRight="26dip"
-                android:layout_marginRight="20dp"
-                android:id="@+id/btnBar"
-                android:layout_gravity="center_horizontal" />
+                android:id="@+id/btnBarcode" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView" />
+
             <Button
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
@@ -48,9 +51,10 @@
                 android:textColor="@color/white"
                 android:paddingLeft="30dip"
                 android:paddingRight="26dip"
-                android:layout_marginRight="10dp"
                 android:id="@+id/btnRfid"
                 android:layout_gravity="center_horizontal" />
+
+
         </LinearLayout>
 
         <TextView
@@ -62,11 +66,6 @@
             android:layout_marginTop="15dp"
             android:text="*Insert Picture Here"
             android:paddingBottom="25dp"/>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/assetPicture" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -82,10 +81,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/descriptionData"
+            android:id="@+id/ownerNameData"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="15dp"
             android:text="OWNER"
+            android:paddingBottom="25dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/descriptionData"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp"
+            android:text="DESCRIPTION"
             android:paddingBottom="25dp"/>
 
         <TextView

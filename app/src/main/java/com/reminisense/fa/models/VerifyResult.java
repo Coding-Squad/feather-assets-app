@@ -68,4 +68,17 @@ public class VerifyResult {
     public void setMessage(String message) {
         this.message = message;
     }
+
+    @Override
+    public String toString() {
+        return "VerifyResult{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", imageUrls='" + imageUrls + '\'' +
+                ", takeOutAllowed=" + takeOutAllowed +
+                ", takeOutInfo='" + takeOutInfo + '\'' +
+                ", result='" + result + '\'' +
+                ", message='" + message + '\'' +
+                '}';
+    }
 }

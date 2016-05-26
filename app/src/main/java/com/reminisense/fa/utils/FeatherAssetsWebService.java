@@ -10,10 +10,8 @@ import com.reminisense.fa.models.VerifyResult;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
 
 /**
  * Retrofit interface definitions to communicate with our API.
@@ -26,8 +24,8 @@ public interface FeatherAssetsWebService {
     @POST("/api/asset/add")
     Call<RestResult> registerAsset(@Body Asset asset, @Header(X_AUTH_TOKEN) String xAuthToken);
 
-    @GET("/api/verify")
-    Call<VerifyResult> verify(@Body VerifyRequest verifyRequest, @Header(X_AUTH_TOKEN) String xAuthToken);
+    @POST("/api/asset/verify")
+    Call<VerifyResult> verify(@Body VerifyRequest tag, @Header(X_AUTH_TOKEN) String xAuthToken);
 
     @POST("/login")
     Call<LoginResult> login(@Body LoginInfo loginInfo);
