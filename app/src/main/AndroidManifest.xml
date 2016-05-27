@@ -37,12 +37,10 @@
             android:label="@string/barcode" />
         <activity
             android:name=".activities.RegisterActivity"
-            android:label="@string/register_asset"
-            android:parentActivityName=".activities.MenuActivity" />
+            android:label="@string/register_asset" />
         <activity
             android:name=".activities.ScanActivity"
-            android:label="@string/verify_tag"
-            android:parentActivityName=".activities.MenuActivity" />
+            android:label="@string/verify_tag" />
         <activity
             android:name=".activities.NfcScannerActivity"
             android:label="@string/nfc">

@@ -131,15 +131,20 @@ public class ScanActivity extends AppCompatActivity {
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        toggleContentView(1);
+        if (resultCode == RESULT_OK && (
+                requestCode == SCAN_RFID ||
+                        requestCode == SCAN_BARCODE ||
+                        requestCode == SCAN_QR)) {
 
-        if (resultCode == RESULT_OK) {
+            toggleContentView(1);
             Toast.makeText(ScanActivity.this, "Loading...", Toast.LENGTH_SHORT).show();
+
             VerifyRequest request = new VerifyRequest();
             int companyId = CacheManager.retrieveCompanyId(ScanActivity.this);
             // FIXME: we are assuming that there is a company with id = 1
             request.setCompanyId(companyId == 0 ? 1 : companyId);
             request.setTag(data.getDataString());
+
             if (requestCode == SCAN_RFID) {
                 request.setTagType(1);
             } else if (requestCode == SCAN_BARCODE) {
@@ -157,9 +162,6 @@ public class ScanActivity extends AppCompatActivity {
                         Log.d(RegisterActivity.class.toString(), verifyResult.toString());
 
                         if ("OK".equals(verifyResult.getResult())) {
-                        /*
-                        get data from database and display
-                         */
                             image.setImageBitmap(getBitmap(verifyResult.getImageUrls()));
                             assetNameData.setText(verifyResult.getName());
                             ownerNameData.setText(verifyResult.getDescription());
@@ -197,6 +199,7 @@ public class ScanActivity extends AppCompatActivity {
      * 1 = loading
      * 2 = viewing
      * default = initial state
+     *
      * @param i
      */
     private void toggleContentView(int i) {

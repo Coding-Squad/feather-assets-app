@@ -47,8 +47,6 @@ public class BarcodeScannerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_barcodescanner);
 
-        setTitle("Barcode/QR Scanner");
-
         initControls();
     }
 
@@ -184,6 +182,13 @@ public class BarcodeScannerActivity extends AppCompatActivity {
                 })
 
                 .show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent mIntent = new Intent();
+        setResult(RESULT_CANCELED, mIntent);
+        super.onBackPressed();
     }
 
 }
