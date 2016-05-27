@@ -80,6 +80,8 @@ public class ScanActivity extends AppCompatActivity {
         btnQr.setOnClickListener(new QrListener());
         btnBarcode.setOnClickListener(new BarcodeListener());
         btnRfid.setOnClickListener(new RfidListener());
+
+        toggleContentView(-1);
     }
 
     // FIXME transfer these listeners to their own classes because there are code duplications
