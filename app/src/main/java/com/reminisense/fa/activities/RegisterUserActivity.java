@@ -9,6 +9,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatImageButton;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -52,7 +53,7 @@ public class RegisterUserActivity extends AppCompatActivity {
     @Bind(R.id.emailText)
     EditText emailText;
     @Bind(R.id.regUserOpenCamera)
-    AppCompatButton regUserOpenCamera;
+    AppCompatImageButton regUserOpenCamera;
     @Bind(R.id.btnSbmt)
     AppCompatButton btnSbmt;
     Uri captureImageUri;
@@ -70,7 +71,7 @@ public class RegisterUserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_registeruser);
         ButterKnife.bind(this);
 
-        setTitle("Register User");
+        //setTitle("Register User");
 
         apiService = new RestClient().getApiService();
 
