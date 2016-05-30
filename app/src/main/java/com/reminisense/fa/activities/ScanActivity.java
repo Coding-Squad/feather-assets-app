@@ -45,7 +45,7 @@ public class ScanActivity extends AppCompatActivity {
     AppCompatButton btnBarcode;
     @Bind(R.id.btnRfid)
     AppCompatButton btnRfid;
-    @Bind(R.id.imageVerify)
+    @Bind(R.id.image)
     ImageView image;
     @Bind(R.id.assetNameData)
     TextView assetNameData;
