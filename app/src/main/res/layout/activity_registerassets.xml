@@ -1,52 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/nameTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:paddingTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:textSize="16dp"
-            android:text="Asset Name"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:orientation="vertical"
+        android:gravity="center">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:layout_marginBottom="15dp">
+            android:layout_marginBottom="16dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:layout_marginTop="16dp">
 
             <EditText
                 android:id="@+id/txtName"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_weight="8"
                 android:inputType="text"
-                android:ems="10" />
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:hint="Asset Name" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/openCamera"
-                android:layout_width="45dp"
+                android:layout_width="0dp"
                 android:layout_height="45dp"
+                android:layout_weight="2"
                 android:background="@android:color/holo_orange_dark"
                 android:textColor="@color/white"
-                android:text="+"
-                android:layout_gravity="center" />
+                android:layout_gravity="center"
+                android:src="@drawable/ic_camera" />
         </LinearLayout>
 
         <ImageView
@@ -54,117 +49,90 @@
             android:layout_height="200.0dp"
             android:id="@+id/image"
             android:adjustViewBounds="true"
-            android:layout_gravity="center" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="right"></RelativeLayout>
-
-        <TextView
-            android:id="@+id/descTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:layout_marginLeft="10dp"
-            android:textSize="16dp"
-            android:paddingTop="10dp"
-            android:text="Owner Name"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:layout_gravity="center"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp" />
 
         <EditText
             android:id="@+id/txtDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="20dp"
-            android:ems="10"
-            android:inputType="textLongMessage" />
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:inputType="textLongMessage"
+            android:hint="Owner Name" />
 
         <Switch
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16dp"
             android:text="Take-out Allowed?"
-            android:layout_marginLeft="10dp"
             android:textOff="NO"
             android:textOn="YES"
-            android:paddingTop="8dp"
-            android:paddingBottom="15dp"
             android:id="@+id/swchTakeOut"
             android:checked="false"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <TextView
-            android:id="@+id/infoTitle"
-            android:layout_width="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_height="wrap_content"
-            android:textSize="16dp"
-            android:textColor="@color/black"
-            android:text="Take Out Note"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp" />
 
         <EditText
             android:id="@+id/txtTakeOutInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="20dp"
-            android:hint="(Optional)"
+            android:hint="Add a note..."
             android:ems="10"
-            android:inputType="textLongMessage" />
+            android:inputType="textLongMessage"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:paddingTop="10dp"
             android:textColor="@color/black"
             android:textSize="16dp"
             android:text="Choose what type of tag to save"
-            android:paddingBottom="15dp"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_marginTop="16dp" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp">
 
             <Button
                 android:id="@+id/btnQrCodeRegister"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@android:color/holo_orange_dark"
                 android:textColor="@color/white"
-                android:paddingLeft="10dip"
-                android:paddingRight="15dip"
-                android:layout_marginLeft="15dp"
-                android:text="QR Code" />
+                android:text="QR Code"
+                android:layout_margin="4dp" />
 
             <Button
                 android:id="@+id/btnBarCodeRegister"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@android:color/holo_orange_dark"
                 android:textColor="@color/white"
-                android:paddingLeft="10dip"
-                android:paddingRight="10dip"
-                android:layout_marginLeft="30dp"
-                android:text="Bar Code" />
+                android:text="Bar Code"
+                android:layout_margin="4dp" />
 
             <Button
                 android:id="@+id/btnRfidRegister"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@android:color/holo_orange_dark"
                 android:textColor="@color/white"
-                android:paddingLeft="10dip"
-                android:paddingRight="10dip"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="15dp"
-                android:text="RFID" />
+                android:text="RFID"
+                android:layout_margin="4dp" />
 
         </LinearLayout>
 
@@ -175,7 +143,8 @@
             android:id="@+id/txtTagData"
             android:layout_gravity="center_horizontal"
             android:text="NONE"
-            android:paddingBottom="25dp"/>
+            android:paddingBottom="25dp"
+            android:visibility="visible" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -183,17 +152,25 @@
             android:layout_gravity="center_horizontal"
             android:id="@+id/txtTagType" />
 
-        <Button
-            android:id="@+id/btnSubmit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/holo_orange_dark"
-            android:textColor="@color/white"
-            android:paddingLeft="100dip"
-            android:paddingRight="100dip"
-            android:text="SUBMIT"
-            android:layout_gravity="center"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
+            <Button
+                android:id="@+id/btnSubmit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/holo_orange_dark"
+                android:textColor="@color/white"
+                android:text="SUBMIT"
+                android:layout_gravity="center"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp" />
+
+        </RelativeLayout>
 
     </LinearLayout>
 </ScrollView>

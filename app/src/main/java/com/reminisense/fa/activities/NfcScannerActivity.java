@@ -32,8 +32,6 @@ public class NfcScannerActivity extends NfcActivity {
         setContentView(R.layout.activity_nfcscanner);
         ButterKnife.bind(this);
 
-        setTitle("RFID Tag");
-
         btnOk.setOnClickListener(new ButtonAcceptListener());
     }
 
@@ -86,5 +84,12 @@ public class NfcScannerActivity extends NfcActivity {
         public void onClick(View v) {
             finish();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent mIntent = new Intent();
+        setResult(RESULT_CANCELED, mIntent);
+        super.onBackPressed();
     }
 }

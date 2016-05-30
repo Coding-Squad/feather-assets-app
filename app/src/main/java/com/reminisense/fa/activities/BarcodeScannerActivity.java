@@ -15,6 +15,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.reminisense.fa.R;
 
@@ -46,8 +47,6 @@ public class BarcodeScannerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_barcodescanner);
-
-        setTitle("Barcode/QR Scanner");
 
         initControls();
     }
@@ -96,11 +95,12 @@ public class BarcodeScannerActivity extends AppCompatActivity {
     /**
      * A safe way to get an instance of the Camera object.
      */
-    public static Camera getCameraInstance() {
+    public Camera getCameraInstance() {
         Camera c = null;
         try {
-            c = Camera.open();
+            c = Camera.open(0);
         } catch (Exception e) {
+            Toast.makeText(BarcodeScannerActivity.this, "Unable to get camera instance: " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
         return c;
     }
@@ -177,13 +177,19 @@ public class BarcodeScannerActivity extends AppCompatActivity {
                 .setMessage(message)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-
+                        releaseCamera();
                         finish();
-
                     }
                 })
 
                 .show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent mIntent = new Intent();
+        setResult(RESULT_CANCELED, mIntent);
+        super.onBackPressed();
     }
 
 }

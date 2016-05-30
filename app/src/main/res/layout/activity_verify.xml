@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -9,107 +9,143 @@
         android:layout_marginTop="30dp" >
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp">
             <Button
                 style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="QR"
                 android:background="@android:color/holo_orange_dark"
                 android:textColor="@color/white"
-                android:layout_marginRight="20dp"
-                android:paddingLeft="30dip"
-                android:paddingRight="26dip"
                 android:id="@+id/btnQr"
-                android:layout_gravity="center_horizontal" />
+                android:layout_margin="4dp" />
             <Button
                 style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="BARCODE"
                 android:background="@android:color/holo_orange_dark"
                 android:textColor="@color/white"
-                android:layout_marginRight="20dp"
-                android:paddingLeft="30dip"
-                android:paddingRight="26dip"
-                android:id="@+id/btnBarcode" />
+                android:id="@+id/btnBarcode"
+                android:layout_margin="4dp" />
 
             <Button
                 style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="RFID TAG"
                 android:background="@android:color/holo_orange_dark"
                 android:textColor="@color/white"
-                android:paddingLeft="30dip"
-                android:paddingRight="26dip"
                 android:id="@+id/btnRfid"
-                android:layout_gravity="center_horizontal" />
+                android:layout_margin="4dp" />
 
 
         </LinearLayout>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="200.0dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_gravity="center"
-            android:id="@+id/imageVerify" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="invisible"
+            android:id="@+id/loadingLayout">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/assetNameData"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="15dp"
-            android:text=""
-            android:paddingBottom="25dp"/>
+            <ProgressBar
+                android:id="@+id/loading"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:visibility="visible" />
+        </RelativeLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/ownerNameData"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="15dp"
-            android:text=""
-            android:paddingBottom="25dp"/>
+        <LinearLayout
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="visible">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/descriptionData"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="15dp"
-            android:text=""
-            android:paddingBottom="25dp"/>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/image"
+                android:src="@drawable/ic_clipboard"
+                android:minHeight="100dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/takeOutAvailData"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="15dp"
-            android:text=""
-            android:paddingBottom="25dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:gravity="center">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/takeOutNoteData"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
-            android:text=""
-            android:paddingBottom="25dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/assetNameData"
+                android:textSize="32sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/ownerNameData"
+                android:textSize="16sp"
+                android:textColor="@color/caption_grey"
+                android:layout_marginBottom="20dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description"
+                android:textAllCaps="true"
+                android:textSize="12sp"
+                android:textColor="@color/colorPrimaryDark" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/descriptionData"
+                android:text="-"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/takeOutAvailData"
+                android:text="111"
+                android:visibility="invisible" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NOTES"
+                android:textAllCaps="true"
+                android:textSize="12sp"
+                android:textColor="@color/colorPrimaryDark" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/takeOutNoteData"
+                android:lines="5"
+                android:text="-"
+                android:textSize="18sp" />
+
+            </LinearLayout>
+        </LinearLayout>
 
     </LinearLayout>
 </ScrollView>

@@ -10,6 +10,8 @@ import android.support.v7.widget.AppCompatButton;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,6 +57,10 @@ public class ScanActivity extends AppCompatActivity {
     TextView takeOutAvailData;
     @Bind(R.id.takeOutNoteData)
     TextView takeOutNoteData;
+    @Bind(R.id.loadingLayout)
+    RelativeLayout loadingLayout;
+    @Bind(R.id.content)
+    LinearLayout contentLayout;
 
     private static final int SCAN_RFID = 1;
     private static final int SCAN_BARCODE = 2;
@@ -74,6 +80,8 @@ public class ScanActivity extends AppCompatActivity {
         btnQr.setOnClickListener(new QrListener());
         btnBarcode.setOnClickListener(new BarcodeListener());
         btnRfid.setOnClickListener(new RfidListener());
+
+        toggleContentView(-1);
     }
 
     // FIXME transfer these listeners to their own classes because there are code duplications
@@ -124,12 +132,20 @@ public class ScanActivity extends AppCompatActivity {
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK) {
+        if (resultCode == RESULT_OK && (
+                requestCode == SCAN_RFID ||
+                        requestCode == SCAN_BARCODE ||
+                        requestCode == SCAN_QR)) {
+
+            toggleContentView(1);
+            Toast.makeText(ScanActivity.this, "Loading...", Toast.LENGTH_SHORT).show();
+
             VerifyRequest request = new VerifyRequest();
             int companyId = CacheManager.retrieveCompanyId(ScanActivity.this);
             // FIXME: we are assuming that there is a company with id = 1
             request.setCompanyId(companyId == 0 ? 1 : companyId);
             request.setTag(data.getDataString());
+
             if (requestCode == SCAN_RFID) {
                 request.setTagType(1);
             } else if (requestCode == SCAN_BARCODE) {
@@ -143,28 +159,27 @@ public class ScanActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<VerifyResult> call, Response<VerifyResult> response) {
                     if (response.code() == 200) {
-
                         VerifyResult verifyResult = response.body();
                         Log.d(RegisterActivity.class.toString(), verifyResult.toString());
 
                         if ("OK".equals(verifyResult.getResult())) {
-                        /*
-                        get data from database and display
-                         */
                             image.setImageBitmap(getBitmap(verifyResult.getImageUrls()));
                             assetNameData.setText(verifyResult.getName());
                             ownerNameData.setText(verifyResult.getDescription());
                             descriptionData.setText(verifyResult.getDescription());
                             // TODO takeOutAllowed
-                            // TODO image
                             takeOutNoteData.setText(verifyResult.getTakeOutInfo());
+                            toggleContentView(2);
                         } else {
                             Toast.makeText(ScanActivity.this, "Asset not found! Please register.", Toast.LENGTH_LONG).show();
+                            toggleContentView(-1);
                         }
                     } else if (response.code() == 401) {
                         Toast.makeText(ScanActivity.this, "Authentication error.", Toast.LENGTH_LONG).show();
+                        toggleContentView(-1);
                     } else {
                         Toast.makeText(ScanActivity.this, "Error: " + response.code(), Toast.LENGTH_LONG).show();
+                        toggleContentView(-1);
                     }
                 }
 
@@ -172,9 +187,35 @@ public class ScanActivity extends AppCompatActivity {
                 public void onFailure(Call<VerifyResult> call, Throwable t) {
                     Toast.makeText(ScanActivity.this, "Error connecting to server, please try again", Toast.LENGTH_LONG).show();
                     t.printStackTrace();
+                    toggleContentView(-1);
                 }
 
             });
+        } else {
+            toggleContentView(-1);
+        }
+    }
+
+    /**
+     * 1 = loading
+     * 2 = viewing
+     * default = initial state
+     *
+     * @param i
+     */
+    private void toggleContentView(int i) {
+        switch (i) {
+            case 1:
+                loadingLayout.setVisibility(View.VISIBLE);
+                contentLayout.setVisibility(View.INVISIBLE);
+                break;
+            case 2:
+                loadingLayout.setVisibility(View.GONE);
+                contentLayout.setVisibility(View.VISIBLE);
+                break;
+            default:
+                loadingLayout.setVisibility(View.INVISIBLE);
+                contentLayout.setVisibility(View.INVISIBLE);
         }
     }
 }

@@ -5,34 +5,33 @@
     android:layout_height="match_parent"
     android:padding="16dp"
     android:orientation="vertical"
-    tools:context=".MainActivity">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_gravity="center_horizontal"
-        android:autoLink="web"
-        android:textSize="30dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="300dip"
-        android:text="Reminisense NFC"
-        android:textStyle="bold"/>
+    tools:context=".MainActivity"
+    android:weightSum="1">
 
     <TextView
         android:id="@+id/info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@android:color/holo_orange_dark"
-        android:textColor="@color/white"
-        android:paddingLeft="100dip"
-        android:paddingRight="100dip"
-        android:text="OK"
-        android:layout_gravity="center_horizontal"
-        android:id="@+id/btnOk" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal" >
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_orange_dark"
+            android:textColor="@color/white"
+            android:paddingLeft="100dip"
+            android:paddingRight="100dip"
+            android:text="OK"
+            android:id="@+id/btnOk"
+            android:layout_gravity="center|bottom"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+    </RelativeLayout>
 
 </LinearLayout>

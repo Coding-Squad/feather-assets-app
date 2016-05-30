@@ -9,6 +9,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatImageButton;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -56,7 +57,7 @@ public class RegisterActivity extends AppCompatActivity {
     @Bind(R.id.btnQrCodeRegister)
     AppCompatButton btnQrCodeRegister;
     @Bind(R.id.openCamera)
-    AppCompatButton openCamera;
+    AppCompatImageButton openCamera;
     @Bind(R.id.btnRfidRegister)
     AppCompatButton btnRfidRegister;
     @Bind(R.id.btnBarCodeRegister)
