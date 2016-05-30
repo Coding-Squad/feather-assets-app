@@ -5,6 +5,7 @@
     <string name="verify_tag">Verify Tag</string>
     <string name="preference_key">Preferences</string>
     <string name="register_asset">Register Asset</string>
+    <string name="register_user">Register User</string>
     <string name="menu">Menu</string>
     <string name="nfc">NFC</string>
 </resources>
