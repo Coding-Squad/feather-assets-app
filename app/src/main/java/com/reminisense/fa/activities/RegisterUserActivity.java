@@ -7,6 +7,7 @@ import android.support.v7.widget.AppCompatButton;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.reminisense.fa.BuildConfig;
@@ -38,10 +39,17 @@ public class RegisterUserActivity extends AppCompatActivity {
     EditText descText;
     @Bind(R.id.emailText)
     EditText emailText;
+    @Bind(R.id.txtPassword)
+    EditText passwordText;
+    @Bind(R.id.txtConfirmPassword)
+    EditText confirmPassword;
+    @Bind(R.id.authorities)
+    RadioGroup authorities;
     @Bind(R.id.btnSbmt)
     AppCompatButton btnSbmt;
 
     private FeatherAssetsWebService apiService;
+    private String auth;
 
     @Override
     protected void onCreate(Bundle savedInstance) {
@@ -61,11 +69,20 @@ public class RegisterUserActivity extends AppCompatActivity {
         public void onClick(View v) {
             User user = new User();
 
+            user.setCompanyId(1);
             user.setFirstName(fnText.getText().toString());
             user.setLastName(lnText.getText().toString());
             user.setPosition(posText.getText().toString());
             user.setDescription(descText.getText().toString());
             user.setEmail(emailText.getText().toString());
+            user.setPassword(passwordText.getText().toString());
+            user.setConfirmPassword(confirmPassword.getText().toString());
+
+            if(authorities.getCheckedRadioButtonId() != -1){
+                auth = String.valueOf(authorities.getCheckedRadioButtonId());
+            }
+
+            user.setAuthorities(auth);
 
             Log.d(RegisterUserActivity.class.toString(), user.toString());
             submitData(user);

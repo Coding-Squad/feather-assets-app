@@ -1,5 +1,6 @@
 package com.reminisense.fa.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,8 +12,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatImageButton;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AutoCompleteTextView;
+import android.widget.BaseAdapter;
 import android.widget.EditText;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -23,12 +30,15 @@ import com.reminisense.fa.R;
 import com.reminisense.fa.managers.CacheManager;
 import com.reminisense.fa.models.Asset;
 import com.reminisense.fa.models.RestResult;
+import com.reminisense.fa.models.User;
 import com.reminisense.fa.utils.FeatherAssetsWebService;
 import com.reminisense.fa.utils.RestClient;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import butterknife.Bind;
@@ -44,8 +54,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     private static final String Submit = "Submitting... ";
     // FIXME
-//    @Bind(R.id.txtOwner)
-//    EditText txtOwner;
+    @Bind(R.id.txtOwner)
+    AutoCompleteTextView txtOwner;
     @Bind(R.id.txtName)
     EditText txtName;
     @Bind(R.id.txtDescription)
@@ -97,6 +107,8 @@ public class RegisterActivity extends AppCompatActivity {
 
         //initialize api services
         apiService = new RestClient().getApiService();
+
+        //txtOwner.setAdapter();
 
         btnRfidRegister.setOnClickListener(new RfidListener());
         btnQrCodeRegister.setOnClickListener(new QrListener());

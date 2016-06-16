@@ -53,6 +53,14 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp" />
 
+        <AutoCompleteTextView
+            android:id = "@+id/txtOwner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:hint = "Owner Name"/>
+
         <EditText
             android:id="@+id/txtDescription"
             android:layout_width="match_parent"
@@ -60,7 +68,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:inputType="textLongMessage"
-            android:hint="Owner Name" />
+            android:hint="Description" />
 
         <Switch
             android:layout_width="match_parent"

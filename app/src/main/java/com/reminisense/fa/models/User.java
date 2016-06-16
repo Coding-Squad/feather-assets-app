@@ -7,12 +7,39 @@ public class User {
 
     private int userId;
     private int companyId;
-    private int authorities;
+    private String authorities;
     private String firstName;
     private String lastName;
     private String position;
     private String description;
     private String email;
+    private String imageUrl;
+    private String password;
+    private String confirmPassword;
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
 
     public int getUserId() {
         return userId;
@@ -30,11 +57,11 @@ public class User {
         this.companyId = companyId;
     }
 
-    public int getAuthorities() {
+    public String getAuthorities() {
         return authorities;
     }
 
-    public void setAuthorities(int userLevel) {
+    public void setAuthorities(String userLevel) {
         this.authorities = userLevel;
     }
 

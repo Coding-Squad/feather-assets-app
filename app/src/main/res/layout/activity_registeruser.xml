@@ -13,90 +13,121 @@
         android:paddingLeft="16dp"
         android:paddingRight="16dp">
 
-        <TextView
-            android:id="@+id/fnTextTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:textColor="@color/black"
-            android:text="First Name"
-            android:textAllCaps="true"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/fnText"
+            android:hint = "First Name"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:ems="10" />
-
-        <TextView
-            android:id="@+id/lnTextTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:textColor="@color/black"
-            android:text="Last Name"
-            android:textAllCaps="true"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_marginTop="4dp" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/lnText"
+            android:hint = "Last Name"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:ems="10" />
-
-        <TextView
-            android:id="@+id/posTextTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:textColor="@color/black"
-            android:text="Position"
-            android:textAllCaps="true"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_marginTop="4dp" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/posText"
+            android:hint = "Position"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:ems="10" />
-
-        <TextView
-            android:id="@+id/descTextTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:textColor="@color/black"
-            android:text="Description"
-            android:textAllCaps="true"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_marginTop="4dp" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/descText"
+            android:hint = "Description"
+            android:inputType="textLongMessage"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:ems="10" />
-
-        <TextView
-            android:id="@+id/emailTextTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:textColor="@color/black"
-            android:text="E-Mail"
-            android:textAllCaps="true"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_marginTop="4dp" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
             android:id="@+id/emailText"
+            android:hint ="E-Mail"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:ems="10" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:id="@+id/txtPassword"
+            android:hint ="Password"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:ems="10" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:id="@+id/txtConfirmPassword"
+            android:hint ="Re-Type Password"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:ems="10" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Authority"
+            android:textSize="20dp"
+            android:textAlignment="center"
+            android:textColor="#030303" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginBottom="16dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:layout_marginTop="16dp">
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id = "@+id/authorities"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ROLE_ADMIN"
+                android:text="Administrator"
+                android:layout_marginRight="10dp" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ROLE_GUARD"
+                android:text="Security"
+                android:layout_marginRight="10dp" />
+
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ROLE_USER"
+                android:text="User" />
+
+        </RadioGroup>
+
+    </LinearLayout>
 
         <Button
             android:layout_width="match_parent"
