@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Spinner
+        android:id="@+id/myAssets"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dropdown" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/image"
+        android:src="@drawable/ic_clipboard"
+        android:minHeight="100dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="20dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id = "@+id/myAssetName"
+        android:text="Asset Name"
+        android:textColor="#030303"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:layout_marginBottom="20dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id = "@+id/myAssetTag"
+        android:text="Tag Number"
+        android:textColor="#030303"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:layout_marginBottom="20dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id = "@+id/myAssetType"
+        android:text="Tag Type"
+        android:textColor="#030303"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:layout_marginBottom="20dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id = "@+id/myAssetDescription"
+        android:text="Description"
+        android:textColor="#030303"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:layout_marginBottom="20dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id = "@+id/myAssetNote"
+        android:text="Take Out Note"
+        android:textColor="#030303"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:layout_marginBottom="20dp" />
+</LinearLayout>

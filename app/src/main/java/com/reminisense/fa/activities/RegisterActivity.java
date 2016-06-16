@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
@@ -35,6 +36,7 @@ import com.reminisense.fa.utils.FeatherAssetsWebService;
 import com.reminisense.fa.utils.RestClient;
 
 import java.io.File;
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -108,7 +110,8 @@ public class RegisterActivity extends AppCompatActivity {
         //initialize api services
         apiService = new RestClient().getApiService();
 
-        //txtOwner.setAdapter();
+        //set autocomplete Textbox
+        fetchUserName();
 
         btnRfidRegister.setOnClickListener(new RfidListener());
         btnQrCodeRegister.setOnClickListener(new QrListener());
@@ -116,6 +119,24 @@ public class RegisterActivity extends AppCompatActivity {
         btnSubmit.setOnClickListener(new SubmitClickListener());
         openCamera.setOnClickListener(new OpenCameraListener());
 
+    }
+
+    private void fetchUserName(){
+        Call<ArrayList<User>> call = apiService.getUserId(1, CacheManager.retrieveAuthToken(RegisterActivity.this));
+
+        call.enqueue(new Callback<ArrayList<User>>() {
+            @Override
+            public void onResponse(Call<ArrayList<User>> call, Response<ArrayList<User>> response) {
+                ArrayList<User> user = response.body();
+                ArrayAdapter adapter = new ArrayAdapter(RegisterActivity.this, android.R.layout.simple_dropdown_item_1line, user);
+                txtOwner.setAdapter(adapter);
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<User>> call, Throwable t) {
+
+            }
+        });
     }
 
     private class OpenCameraListener implements View.OnClickListener {

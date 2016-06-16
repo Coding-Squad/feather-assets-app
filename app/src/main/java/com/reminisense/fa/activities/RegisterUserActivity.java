@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.reminisense.fa.BuildConfig;
 import com.reminisense.fa.R;
+import com.reminisense.fa.managers.CacheManager;
 import com.reminisense.fa.models.RestResult;
 import com.reminisense.fa.models.User;
 import com.reminisense.fa.utils.FeatherAssetsWebService;
@@ -90,7 +91,7 @@ public class RegisterUserActivity extends AppCompatActivity {
         }
 
         private void submitData(User user) {
-            Call<RestResult> call = apiService.registerUser(user);
+            Call<RestResult> call = apiService.registerUser(user, CacheManager.retrieveAuthToken(RegisterUserActivity.this));
             call.enqueue(new Callback<RestResult>() {
                 @Override
                 public void onResponse(Call<RestResult> call, Response<RestResult> response) {
