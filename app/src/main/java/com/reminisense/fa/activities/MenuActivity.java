@@ -81,9 +81,9 @@ public class MenuActivity extends AppCompatActivity {
     private class RegisterUserClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            Toast.makeText(getApplicationContext(), "Not yet implemented", Toast.LENGTH_LONG).show();
-//            Intent intent = new Intent(view.getContext(), RegisterUserActivity.class);
-//            startActivity(intent);
+//            Toast.makeText(getApplicationContext(), "Not yet implemented", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(view.getContext(), RegisterUserActivity.class);
+            startActivity(intent);
         }
     }
 }
